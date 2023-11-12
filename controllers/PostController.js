@@ -1,13 +1,34 @@
 const Post = require("../models/Post.js");
 
 const PostController = {
-    async create(req, res) {
+
+    async create(req, res) { // ADD USER AUTHENTICATION
         try {
             const post = await Post.create(req.body);
             res.status(201).send({message: "Post created successfully", post});
         } catch (error) {
             console.error(error);
             res.status(500).send({message: "Error during post creation", error})
+        }
+    },
+
+    async findAll(req, res) {
+        try {
+            const posts = await Post.find();
+            res.status(200).send(posts);
+        } catch (error) {
+            console.error(error);
+            res.status(500).send(error)
+        }
+    },
+
+    async findById(req, res) { // CHECK IF REQ ID EXISTS IN DB
+        try {
+            const postById = await Post.findById(req.params._id);
+            res.status(200).send({message: `Found post with id ${req.params._id}`, postById});
+        } catch (error) {
+            console.error(error);
+            res.status(500).send(error)
         }
     }
 };
