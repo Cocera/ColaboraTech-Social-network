@@ -60,10 +60,10 @@ const PostController = {
             const paramsId = req.params._id;
             const postById = await Post.findById(paramsId);
             if (!postById) {
-                return res.status(400).send(`Id ${paramsId} not exists in DB`);
+                return res.status(400).send(`Post with id ${paramsId} not exists in DB`);
             };
             const post = await Post.findByIdAndDelete(paramsId);
-            res.send({message: `Post with id ${paramsId} deleted`, post});
+            res.send({message: `Post with id ${paramsId} deleted`});
         } catch (error) {
             console.error(error);
             res.status(500).send({message: `Error trying to remove post with id ${paramsId}`, error});
