@@ -22,9 +22,12 @@ const PostController = {
         }
     },
 
-    async findById(req, res) { // CHECK IF REQ ID EXISTS IN DB
+    async findById(req, res) {
         try {
             const postById = await Post.findById(req.params._id);
+            if (!postById) {
+                return res.status(400).send(`Id ${req.params._id} not exists in DB`);
+            };
             res.status(200).send({message: `Found post with id ${req.params._id}`, postById});
         } catch (error) {
             console.error(error);
