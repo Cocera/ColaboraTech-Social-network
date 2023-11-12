@@ -4,6 +4,7 @@ const PORT = 8080;
 const { dbConnection } = require("./config/config")
 
 app.use(express.json())
+app.use("/projects",require("./routes/projects"))
 
 dbConnection()
 
