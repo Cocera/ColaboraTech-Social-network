@@ -24,16 +24,28 @@ const PostController = {
 
     async findById(req, res) {
         try {
-            const postById = await Post.findById(req.params._id);
+            const paramsId = req.params._id;
+            const postById = await Post.findById(paramsId);
             if (!postById) {
-                return res.status(400).send(`Id ${req.params._id} not exists in DB`);
+                return res.status(400).send(`Id ${paramsId} not exists in DB`);
             };
-            res.status(200).send({message: `Found post with id ${req.params._id}`, postById});
+            res.status(200).send({message: `Found post with id ${paramsId}`, postById});
         } catch (error) {
             console.error(error);
             res.status(500).send(error)
         }
-    }
+    },
+
+    async delete(req, res) {
+        try {
+            const paramsId = req.params._id;
+            const post = await Post.findByIdAndDelete(paramsId);
+            res.send({message: `Post with id ${paramsId} deleted`, post});
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({message: `Error trying to remove post with id ${paramsId}`, error});
+        }
+      }
 };
 
 module.exports = PostController;
