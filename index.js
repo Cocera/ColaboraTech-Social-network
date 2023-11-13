@@ -9,7 +9,9 @@ const {dbConnection} = require("./config/config");
 app.use(express.json());
 
 app.use("/users", require("./routes/users"));
-app.use("/projects",require("./routes/projects"))
+app.use("/projects",require("./routes/projects"));
+app.use("/posts", require("./routes/posts"))
+app.use("/comments", require("./routes/comments"))
 
 app.use(handleTypeError);
 
