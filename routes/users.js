@@ -5,6 +5,7 @@ const {authentication, isAdmin} = require("../middlewares/authentication");
 
 router.post("/", UserController.register);
 router.post("/login", UserController.login);
+router.get("/myInfo", authentication, UserController.getCurrent);
 router.delete("/logout", authentication, UserController.logout);
 
 module.exports = router;
