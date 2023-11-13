@@ -36,6 +36,20 @@ const PostController = {
         }
     },
 
+    // async findByIDWithComments(req, res) {
+    //     try {
+    //         const paramsId = req.params._id;
+    //         const postById = await Post.findById(paramsId);
+    //         if (!postById) {
+    //             return res.status(400).send(`Id ${paramsId} not exists in DB`);
+    //         };
+    //         res.status(200).send({message: `Found post with id ${paramsId}`, postById});
+    //     } catch (error) {
+    //         console.error(error);
+    //         res.status(500).send(error)
+    //     }
+    // },
+
     async update(req, res) {
         try {
             const paramsId = req.params._id;
