@@ -1,4 +1,4 @@
 module.exports = {
-    MONGO_URI: 'mongodb+srv://falberola:5zZi7xSEYPPIdGgc@cluster0.hd9lmf3.mongodb.net/colaboraTech',
+    MONGO_URI: 'LINK MONGO SERVER',
     jwt_secret:'your secret'
 }
