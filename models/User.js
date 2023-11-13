@@ -26,12 +26,12 @@ const UserSchema = new mongoose.Schema({
         type: String,
         enum: ["Web Development", "UX/UI", "Cybersecurity", "Data Science", "Project Management"]
     },
-    followers: {
-        userId: {
+    followers: [
+        {
             type: ObjectId,
             ref: "User"
         }
-    },
+    ],
     tokens: []
 }, {timestamps: true});
 
