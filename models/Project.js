@@ -13,7 +13,11 @@ const ProjectSchema = new mongoose.Schema({
     TeamId: {
         type: ObjectId,
         ref: 'Team'
-    },
+      },
+    likes: {
+      type: Number,
+      default: 0,
+      },
 }, { timestamps: true });
 
     ProjectSchema.index({
