@@ -53,6 +53,17 @@ const UserController = {
         }
     },
 
+    async getCurrent(req, res) {
+        try {
+            const user = await User.findById(req.user._id);
+            // .populate("followers");
+            console.log("holaa");
+            res.send({message: "Your information: ", user});
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
     async logout(req, res) {
         try {
             await User.findByIdAndUpdate(req.user._id, {
