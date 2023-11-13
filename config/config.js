@@ -1,10 +1,7 @@
 const mongoose = require("mongoose");
+const {MONGO_URI} = require("./keys");
 
-const { MONGO_URI } = require("./keys");
-
-
-
-const dbConnection = async () => {
+const dbConnection = async() => {
   try {
     await mongoose.connect(MONGO_URI);
     console.log("Database connected successfully");
@@ -15,5 +12,5 @@ const dbConnection = async () => {
 };
 
 module.exports = {
-  dbConnection,
+  dbConnection
 };
