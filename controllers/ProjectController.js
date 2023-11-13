@@ -1,7 +1,7 @@
 const Project = require("../models/Project");
 
 const ProjectController = {
-    async create (req,res){
+    async create (req,res,next){
         try {
             const project = await Project.create(req.body)
             res.status(201).send({msg:"Project created succesfully",project})
@@ -10,7 +10,7 @@ const ProjectController = {
             res.status(500).send({msg:"There was a problem in creating"})
         }
     },
-    async update(req, res) {
+    async update(req,res,next) {
         try {
           const project = await Project.findByIdAndUpdate(
             req.params._id,
@@ -22,7 +22,7 @@ const ProjectController = {
           console.error(error);
         }
     },
-    async delete(req, res) {
+    async delete(req,res,next) {
         try {
           const project = await Project.findByIdAndDelete(req.params._id);
           res.send({ message: "Project deleted", project });
@@ -63,6 +63,18 @@ const ProjectController = {
           console.error(error);
         }
     },
-
+    async like(req, res) {
+      try {
+      const project = await Project.findByIdAndUpdate(
+      req.params._id,
+      { $push: { likes: req.user._id } },
+      { new: true }
+      );
+      res.send(project);
+      } catch (error) {
+      console.error(error);
+      res.status(500).send({ message: "There was a problem with your like" });
+      }
+    },
 }
 module.exports = ProjectController
