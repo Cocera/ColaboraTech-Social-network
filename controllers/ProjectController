@@ -35,7 +35,10 @@ const ProjectController = {
     },
     async getAll(req,res) {
         try {
-            const projects = await Project.find();
+            const { page = 1, limit = 10 } = req.query;
+            const projects = await Project.find()
+              .limit(limit)
+              .skip((page - 1) * limit);
             res.send (projects);
         } catch (error) {
           console.error(error);
