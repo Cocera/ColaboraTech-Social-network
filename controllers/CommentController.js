@@ -2,10 +2,10 @@ const Comment = require("../models/Comment.js");
 
 const CommentController = {
     
-    async create(req, res) { // ADD USER AUTHENTICATION AND ADD USER ID THROUGH HIS TOKEN ID
+    async create(req, res) {
         try {
             postId = req.params._id;
-            const comment = await Comment.create({...req.body, Post_id: postId});
+            const comment = await Comment.create({...req.body, postId, userId: req.user._id});
             res.status(201).send({message: `Comment created successfully in post ${postId}`});
         } catch (error) {
             console.error(error);
