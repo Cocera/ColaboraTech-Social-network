@@ -18,7 +18,7 @@ const ProjectController = {
             req.body,
             { new: true }
           );
-          res.send({ message: "project successfully updated", project });
+          res.send({message:"project successfully updated", project});
         } catch (error) {
           console.error(error);
           next(error);

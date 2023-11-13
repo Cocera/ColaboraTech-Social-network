@@ -51,6 +51,33 @@ const UserController = {
         } catch (error) {
             console.error(error);
         }
+    },
+
+    async getCurrent(req, res) {
+        try {
+            const user = await User.findById(req.user._id);
+            // .populate("followers");
+            console.log("holaa");
+            res.send({message: "Your information: ", user});
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
+    async logout(req, res) {
+        try {
+            await User.findByIdAndUpdate(req.user._id, {
+                $pull: {
+                    tokens: req.headers.authorization
+                }
+            });
+            res.send({message: "Logged out successfully."});
+        } catch (error) {
+            console.error(error);
+            res
+                .status(500)
+                .send({message: "There was an error while logging out user."});
+        }
     }
 };
 
