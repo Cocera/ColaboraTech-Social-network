@@ -10,20 +10,25 @@ const ProjectSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please fill in your description"],
       },
-    TeamId: {
+    team: {
         type: ObjectId,
         ref: 'Team'
       },
-    likes: {
-      type: Number,
+    favorites: [{
+      type: ObjectId,
+      ref: "User",
       default: 0,
-      },
+      }],
 }, { timestamps: true });
 
     ProjectSchema.index({
 
     title: "text",
     
+    });
+
+    ProjectSchema.index({
+      title: "text",
     });
 
 const Project = mongoose.model('Project', ProjectSchema);

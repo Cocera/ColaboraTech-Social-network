@@ -1,10 +1,14 @@
 const Project = require("../models/Project");
+const Team = require("../models/Team");
 
 const ProjectController = {
     async create (req,res,next){
         try {
-            const project = await Project.create(req.body)
-            res.status(201).send({msg:"Project created succesfully",project})
+          const project = await Project.create(req.body);
+          const team = await Team.create({...req.body, ProjectId:project._id, ProjectAdmin:req.user._id,});
+          await team.save();
+          const updatedProject = await Project.findByIdAndUpdate(project._id, { $set: { team: team._id } }, { new: true });
+            res.status(201).send({msg:"Project created succesfully",updatedProject})
         } catch (error) {
             console.error(error)
             next(error);
@@ -51,9 +55,11 @@ const ProjectController = {
         try {
             const projects = await Project.find({
                 $text: {
-                $search: req.params.name,
+                $search: req.params.title,
                 },
-            });res.send (projects);
+            });
+            if (projects.length == 0) {return res.send({msg:"Project not found"})}
+            res.send(projects);
         } catch (error) {
             console.error(error);
         }
