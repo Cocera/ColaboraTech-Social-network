@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 const ObjectId = mongoose.SchemaTypes.ObjectId;
 
-const PostSchema = new mongoose.Schema({
+const ResponseSchema = new mongoose.Schema({
     bodyText: String,
-    asset: String,
     likeIds: [{
         type: ObjectId,
         ref: 'User'
@@ -12,8 +11,12 @@ const PostSchema = new mongoose.Schema({
         type: ObjectId,
         ref: 'User'
     },
+    commentId: {
+        type: ObjectId,
+        ref: 'Comment'
+    },
 }, { timestamps: true });
 
-const Post = mongoose.model('Post', PostSchema);
+const Response = mongoose.model('Response', ResponseSchema);
 
-module.exports = Post;
+module.exports = Response;
