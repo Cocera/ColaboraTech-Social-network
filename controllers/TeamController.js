@@ -1,7 +1,6 @@
 const Team = require("../models/Team.js");
 
 const TeamController = {
-   
     async update(req,res,next) {
         try {
           const team = await Team.findByIdAndUpdate(
@@ -36,19 +35,6 @@ const TeamController = {
             res.send (teams);
         } catch (error) {
           console.error(error);
-        }
-    },
-    async getTeamByName(req,res) {
-        try {
-            const teams = await Team.find({
-                $text: {
-                $search: req.params.title,
-                },
-            });
-            if (teams.length == 0) {return res.send({msg:"Team not found"})}
-            res.send(teams);
-        } catch (error) {
-            console.error(error);
         }
     },
     async getById(req, res) {
