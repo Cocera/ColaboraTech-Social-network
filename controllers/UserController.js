@@ -129,22 +129,22 @@ const UserController = {
                     .status(400)
                     .send({message: "Invalid ID"});
             }
-            const user = await User.findById(req.params._id);
-            if (!user) {
+            const userToFollow = await User.findById(req.params._id);
+            if (!userToFollow) {
                 return res
                     .status(400)
                     .send(`User does not exist in DB`);
-            } else if (user.following.includes(req.user._id)) {
+            } else if (req.user.following.includes(userToFollow._id)) {
                 return res
                     .status(400)
-                    .send({message: `You already follow ${req.user.name}.`});
+                    .send({message: `You already follow ${userToFollow.name}.`});
             } else {
                 await User.findByIdAndUpdate(req.user._id, {
                     $push: {
-                        following: req.params._id
+                        following: userToFollow._id
                     }
                 }, {new: true});
-                await User.findByIdAndUpdate(req.params._id, {
+                await User.findByIdAndUpdate(userToFollow._id, {
                     $push: {
                         followers: req.user._id
                     }
@@ -152,7 +152,46 @@ const UserController = {
             }
             res
                 .status(201)
-                .send({message: `${req.user.name} is now following ${user.name}`});
+                .send({message: `${req.user.name} is now following ${userToFollow.name}`});
+        } catch (error) {
+            console.error(error);
+            res
+                .status(500)
+                .send(error);
+        }
+    },
+
+    async unfollow(req, res) {
+        try {
+            if (!req.params._id.match(/^[0-9a-fA-F]{24}$/)) {
+                return res
+                    .status(400)
+                    .send({message: "Invalid ID"});
+            }
+            const userToUnfollow = await User.findById(req.params._id);
+            if (!userToUnfollow) {
+                return res
+                    .status(400)
+                    .send(`User does not exist in DB`);
+            } else if (!req.user.following.includes(userToUnfollow._id)) {
+                return res
+                    .status(400)
+                    .send({message: `You are not following ${userToUnfollow.name}.`});
+            } else {
+                await User.findByIdAndUpdate(req.user._id, {
+                    $pull: {
+                        following: userToUnfollow._id
+                    }
+                }, {new: true});
+                await User.findByIdAndUpdate(userToUnfollow._id, {
+                    $pull: {
+                        followers: req.user._id
+                    }
+                }, {new: true});
+            }
+            res
+                .status(201)
+                .send({message: `${req.user.name} has unfollowed ${userToUnfollow.name}`});
         } catch (error) {
             console.error(error);
             res
