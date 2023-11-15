@@ -87,15 +87,27 @@ const PostController = {
 
     async deleteLike(req, res) {
         try {
-            const paramsId = req.params._id;
-            const post = await Post.findById(
-                paramsId,
-                {$pull: {likes: {userId:req.user._id}}},
-                {new: true}
-            );
-            if (!post) {
-                return res.status(400).send(`Post with id ${paramsId} not exists in DB`);
+            if (!req.params._id.match(/^[0-9a-fA-F]{24}$/)) {
+                return res.status(400).send({message: 'Invalid ID'});
             };
+            const likedPost = await Post.findById(req.params._id);
+            if (!likedPost) {
+                return res.status(400).send(`Post does not exist in DB`);
+            } else if (!likedPost.likes.includes(req.user._id)) {
+                return res.status(400).send({message: `${req.user.name} has to like post before unlike`});
+            } else {
+                await Post.findByIdAndUpdate(
+                    req.params._id,
+                    {$pull: {likes: req.user._id}},
+                    {new: true}
+                );
+                await User.findByIdAndUpdate(
+                    req.user._id,
+                    {$pull: {likedPosts: req.params._id}},
+                    {new: true}
+                );
+            };
+            res.status(201).send({message: `${req.user.name} does not like post with id: ${req.params._id} anymore`});
         } catch (error) {
             console.error(error);
             res.status(500).send(error);
