@@ -22,9 +22,13 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default: "user"
     },
+    confirmed: Boolean,
     department: {
         type: String,
-        enum: ["Web Development", "UX/UI", "Cybersecurity", "Data Science", "Project Management"]
+        enum: [
+            "Web Development", "UX/UI", "Cybersecurity", "Data Science", "Project Management"
+        ],
+        required: [true, "Please enter a department."]
     },
     followers: [
         {
@@ -32,8 +36,28 @@ const UserSchema = new mongoose.Schema({
             ref: "User"
         }
     ],
+    postId: [
+        {
+            type: ObjectId,
+            ref: "Post"
+        }
+    ],
+    commentId: [
+        {
+            type: ObjectId,
+            ref: "Comment"
+        }
+    ],
+    favProjects: [
+        {
+            type: ObjectId,
+            ref: "Project"
+        }
+    ],
     tokens: []
 }, {timestamps: true});
+
+UserSchema.index({name: "text"});
 
 const User = mongoose.model("User", UserSchema);
 
