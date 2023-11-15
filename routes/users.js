@@ -9,6 +9,7 @@ router.get("/confirm/:emailToken", UserController.confirm);
 router.get("/myInfo", authentication, UserController.getCurrent);
 router.get("/id/:_id", UserController.getById);
 router.get("/name/:name", UserController.getByName);
+router.put("/follow/:_id", authentication, UserController.follow);
 router.delete("/logout", authentication, UserController.logout);
 
 module.exports = router;

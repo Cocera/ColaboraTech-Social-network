@@ -36,6 +36,12 @@ const UserSchema = new mongoose.Schema({
             ref: "User"
         }
     ],
+    following: [
+        {
+            type: ObjectId,
+            ref: "User"
+        }
+    ],
     postId: [
         {
             type: ObjectId,

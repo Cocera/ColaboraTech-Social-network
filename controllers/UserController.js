@@ -91,7 +91,6 @@ const UserController = {
     async getCurrent(req, res) {
         try {
             const user = await User.findById(req.user._id);
-            // .populate("followers");
             res.send({message: "Your information: ", user});
         } catch (error) {
             console.error(error);
@@ -120,6 +119,45 @@ const UserController = {
             res.send(user);
         } catch (error) {
             console.error(error);
+        }
+    },
+
+    async follow(req, res) {
+        try {
+            if (!req.params._id.match(/^[0-9a-fA-F]{24}$/)) {
+                return res
+                    .status(400)
+                    .send({message: "Invalid ID"});
+            }
+            const user = await User.findById(req.params._id);
+            if (!user) {
+                return res
+                    .status(400)
+                    .send(`User does not exist in DB`);
+            } else if (user.following.includes(req.user._id)) {
+                return res
+                    .status(400)
+                    .send({message: `You already follow ${req.user.name}.`});
+            } else {
+                await User.findByIdAndUpdate(req.user._id, {
+                    $push: {
+                        following: req.params._id
+                    }
+                }, {new: true});
+                await User.findByIdAndUpdate(req.params._id, {
+                    $push: {
+                        followers: req.user._id
+                    }
+                }, {new: true});
+            }
+            res
+                .status(201)
+                .send({message: `${req.user.name} is now following ${user.name}`});
+        } catch (error) {
+            console.error(error);
+            res
+                .status(500)
+                .send(error);
         }
     },
 
