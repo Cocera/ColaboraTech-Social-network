@@ -33,7 +33,6 @@ const UserController = {
         try {
             const token = req.params.emailToken;
             const payload = jwt.verify(token, jwt_secret);
-            console.log("payload:", payload);
             await User.findOneAndUpdate({
                 email: payload.email
             }, {
@@ -93,6 +92,31 @@ const UserController = {
             const user = await User.findById(req.user._id);
             // .populate("followers");
             res.send({message: "Your information: ", user});
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
+    async getByName(req, res) {
+        try {
+            const users = await User.find({
+                $text: {
+                    $search: req.params.name
+                }
+            });
+            if (users.length == 0) {
+                return res.send({msg: "User not found."});
+            }
+            res.send(users);
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
+    async getById(req, res) {
+        try {
+            const user = await User.findById(req.params._id);
+            res.send(user);
         } catch (error) {
             console.error(error);
         }
