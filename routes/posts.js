@@ -8,8 +8,8 @@ router.post("/", authentication, PostController.create);
 router.get("/", authentication, PostController.findAll);
 router.get("/id/:_id", authentication, PostController.findById);
 router.put("/id/:_id", authentication, isAuthorPost, PostController.update);
-router.put("/like/:_id", authentication, PostController.insertLike); // POSTMAN CHEQUEAR
-router.put("/unlike/:_id", authentication, PostController.deleteLike); // POSTMAN CHEQUEAR
+router.put("/like/:_id", authentication, PostController.insertLike);
+router.put("/unlike/:_id", authentication, PostController.deleteLike);
 router.delete("/id/:_id", authentication, isAuthorPost, PostController.delete);
 
 module.exports = router;

@@ -17,8 +17,59 @@ const CommentController = {
         }
     },
 
+    async insertLike(req, res) {
+        try {
+            if (!req.params.comment_id.match(/^[0-9a-fA-F]{24}$/)) {
+                return res.status(400).send({message: 'Invalid ID'});
+            };
+            const comment = await Comment.findById(req.params.comment_id);
+            if (!comment) {
+                return res.status(400).send(`Comment does not exist in DB`);
+            } else if (comment.likes.includes(req.user.comment_id)) {
+                return res.status(400).send({message: `${req.user.name} already liked this post`});
+            } else {
+                await Comment.findByIdAndUpdate(
+                    req.params._id,
+                    {$push: {likes: req.user._id}},
+                    {new: true}
+                );
+            };
+            res.status(201).send({message: `${req.user.name} likes comment with id: ${req.params.comment_id}`});
+        } catch (error) {
+            console.error(error);
+            res.status(500).send(error);
+        }
+    },
+
+    async deleteLike(req, res) {
+        try {
+            if (!req.params.comment_id.match(/^[0-9a-fA-F]{24}$/)) {
+                return res.status(400).send({message: 'Invalid ID'});
+            };
+            const likedComment = await Post.findById(req.params.comment_id);
+            if (!likedPost) {
+                return res.status(400).send(`Post does not exist in DB`);
+            } else if (!likedComment.likes.includes(req.user.comment_id)) {
+                return res.status(400).send({message: `${req.user.name} has to like comment before unlike`});
+            } else {
+                await Comment.findByIdAndUpdate(
+                    req.params.comment_id,
+                    {$pull: {likes: req.user._id}},
+                    {new: true}
+                );
+            };
+            res.status(201).send({message: `${req.user.name} does not like comment with id: ${req.params.comment_id} anymore`});
+        } catch (error) {
+            console.error(error);
+            res.status(500).send(error);
+        }
+    },
+
     async delete(req, res) {
         try {
+            if (!req.params._id.match(/^[0-9a-fA-F]{24}$/)) {
+                return res.status(400).send({message: 'Invalid ID'});
+            };
             const commentById = await Comment.findById(req.params._id);
             if (!postById) {
                 return res.status(400).send(`Comment with id ${req.params._id} not exists in DB`);
@@ -30,9 +81,6 @@ const CommentController = {
             res.status(500).send({message: `Error trying to remove comment with id ${req.params._id}`, error});
         }
       }
-
-      // Crear middleware de ID check par ano repetir codigo cada vez qu enos pasen un id concreto por params
-
 };
 
 module.exports = CommentController;
