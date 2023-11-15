@@ -2,9 +2,12 @@ const mongoose = require('mongoose');
 const ObjectId = mongoose.SchemaTypes.ObjectId;
 
 const PostSchema = new mongoose.Schema({
-    bodyText: String,
+    bodyText: {
+        type: String,
+        required: [true, "Complete body test of post"]
+    },
     asset: String,
-    likeIds: [{
+    likes: [{
         type: ObjectId,
         ref: 'User'
     }],
