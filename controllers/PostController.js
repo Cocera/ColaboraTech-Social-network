@@ -62,7 +62,6 @@ const PostController = {
                 return res.status(400).send({message: 'Invalid ID'});
             };
             const post = await Post.findById(req.params._id);
-            console.log(!post);
             if (!post) {
                 return res.status(400).send(`Post does not exist in DB`);
             } else if (post.likes.includes(req.user._id)) {
@@ -71,6 +70,11 @@ const PostController = {
                 await Post.findByIdAndUpdate(
                     req.params._id,
                     {$push: {likes: req.user._id}},
+                    {new: true}
+                );
+                await User.findByIdAndUpdate(
+                    req.user._id,
+                    {$push: {likedPosts: req.params._id}},
                     {new: true}
                 );
             };
