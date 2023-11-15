@@ -1,10 +1,9 @@
-const express = require ("express");
+const express = require("express");
 const router = express.Router();
 const ProjectController = require("../controllers/ProjectController.js");
-const { authentication, isAdmin } = require("../middlewares/authentication.js");
+const {authentication, isAdmin} = require("../middlewares/authentication.js");
 
-
-router.post("/", authentication, isAdmin, ProjectController.create);
+router.post("/", authentication, ProjectController.create);
 router.put("/id/:_id", ProjectController.update);
 router.delete("/id/:_id", authentication, isAdmin, ProjectController.delete);
 router.get("/", ProjectController.getAll);

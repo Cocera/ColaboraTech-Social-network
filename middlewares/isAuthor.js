@@ -3,7 +3,7 @@ const Post = require("../models/Post");
 const isAuthor = async(req, res, next) => {
     try {
         const post = await Post.findById(req.params._id);
-        const comment = await Comment;
+
         if (post.userId.toString() !== req.user._id.toString()) {
             return res
                 .status(403)
