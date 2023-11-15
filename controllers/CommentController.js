@@ -17,6 +17,23 @@ const CommentController = {
         }
     },
 
+    async update(req, res) {
+        try {
+            if (!req.params.comment_id.match(/^[0-9a-fA-F]{24}$/)) {
+                return res.status(400).send({message: 'Invalid ID'});
+            }; // Añadir validacion de si existe en DB
+            const commentToUpdate = await Comment.findByIdAndUpdate(
+                req.params.comment_id,
+                req.body,
+                { new: true }
+            );
+            res.status(200).send({message: `Comment with id ${req.params.comment_id} updated`, bodyText: commentToUpdate.bodyText});
+        } catch (error) {
+            console.error(error);
+            res.status(500).send(error)
+        }
+    },
+
     async insertLike(req, res) {
         try {
             if (!req.params.comment_id.match(/^[0-9a-fA-F]{24}$/)) {
