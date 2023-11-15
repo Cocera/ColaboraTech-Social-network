@@ -9,7 +9,8 @@ const ProjectController = {
         ...req.body,
         ProjectId: project._id,
         TeamName: `${project.title} Team`,
-        ProjectAdmin: req.user._id
+        ProjectAdmin: req.user._id, 
+        members: [req.user._id]
       });
       await team.save();
       const updatedProject = await Project.findByIdAndUpdate(project._id, {
