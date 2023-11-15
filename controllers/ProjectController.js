@@ -5,9 +5,21 @@ const ProjectController = {
   async create(req, res, next) {
     try {
       const project = await Project.create(req.body);
+      const team = await Team.create({
+        ...req.body,
+        ProjectId: project._id,
+        TeamName: `${project.title} Team`,
+        ProjectAdmin: req.user._id
+      });
+      await team.save();
+      const updatedProject = await Project.findByIdAndUpdate(project._id, {
+        $set: {
+          team: team._id
+        }
+      }, {new: true});
       res
         .status(201)
-        .send({msg: "Project created successfully.", project});
+        .send({msg: "Project created successfully", updatedProject});
     } catch (error) {
       console.error(error);
       next(error);
@@ -16,6 +28,7 @@ const ProjectController = {
         .send({msg: "There was a problem in creating"});
     }
   },
+
   async update(req, res, next) {
     try {
       const project = await Project.findByIdAndUpdate(req.params._id, req.body, {new: true});
@@ -25,6 +38,7 @@ const ProjectController = {
       next(error);
     }
   },
+
   async delete(req, res, next) {
     try {
       const project = await Project.findByIdAndDelete(req.params._id);
@@ -37,6 +51,7 @@ const ProjectController = {
         .send({message: "There was a problem trying to remove the project"});
     }
   },
+
   async getAll(req, res) {
     try {
       const {
@@ -52,6 +67,7 @@ const ProjectController = {
       console.error(error);
     }
   },
+
   async getProjectByName(req, res) {
     try {
       const projects = await Project.find({
@@ -64,6 +80,7 @@ const ProjectController = {
       console.error(error);
     }
   },
+
   async getById(req, res) {
     try {
       const project = await Project.findById(req.params._id);
@@ -72,6 +89,7 @@ const ProjectController = {
       console.error(error);
     }
   },
+
   async like(req, res) {
     try {
       const project = await Project.findByIdAndUpdate(req.params._id, {
@@ -87,6 +105,7 @@ const ProjectController = {
         .send({message: "There was a problem with your like"});
     }
   },
+
   async unlike(req, res) {
     try {
       const project = await Project.findById(req.params.user_id);
