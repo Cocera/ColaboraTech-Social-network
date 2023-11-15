@@ -56,22 +56,29 @@ const PostController = {
         }
     },
 
-    async insertLike(req, res) { // --------- NO VA!!!! Hay que meter posts likes en entidad user
+    async insertLike(req, res) {
         try {
+            if (!req.params._id.match(/^[0-9a-fA-F]{24}$/)) {
+                return res.status(400).send({message: 'Invalid ID'});
+            };
             const post = await Post.findById(req.params._id);
-            const user = await User.findById(req.user._id);
             if (!post) {
-                return res.status(400).send(`Post with id ${req.params._id} not exists in DB`);
-            } else if (post.likes.find({_id: user._id})) {
-                return res.status(400).send({message: `${user.name} already likes this post`});
+                return res.status(400).send(`Post does not exist in DB`);
+            } else if (post.likes.includes(req.user._id)) {
+                return res.status(400).send({message: `${req.user.name} already liked this post`});
             } else {
                 await Post.findByIdAndUpdate(
                     req.params._id,
-                    {$push: {likes: {userId: req.user._id}}},
+                    {$push: {likes: req.user._id}},
+                    {new: true}
+                );
+                await User.findByIdAndUpdate(
+                    req.user._id,
+                    {$push: {likedPosts: req.params._id}},
                     {new: true}
                 );
             };
-            res.status(201).send({message: `${user.name} likes post with id: ${paramsId._id}`});
+            res.status(201).send({message: `${req.user.name} likes post with id: ${req.params._id}`});
         } catch (error) {
             console.error(error);
             res.status(500).send(error);

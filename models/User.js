@@ -48,6 +48,12 @@ const UserSchema = new mongoose.Schema({
             ref: "Comment"
         }
     ],
+    likedPosts: [
+        {
+            type: ObjectId,
+            ref: "Post"
+        }
+    ],
     favProjects: [
         {
             type: ObjectId,
