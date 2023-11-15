@@ -61,7 +61,7 @@ const PostController = {
             const post = await Post.findById(req.params._id);
             const user = await User.findById(req.user._id);
             if (!post) {
-                return res.status(400).send(`Post with id ${req.params._id} not exists in DB`);
+                return res.status(400).send(`Post not exists in DB`);
             } else if (post.likes.find({_id: user._id})) {
                 return res.status(400).send({message: `${user.name} already likes this post`});
             } else {
