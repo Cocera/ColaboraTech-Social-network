@@ -1,22 +1,22 @@
 const mongoose = require('mongoose');
 const ObjectId = mongoose.SchemaTypes.ObjectId;
 
-const CommentSchema = new mongoose.Schema({
+const ResponseSchema = new mongoose.Schema({
     bodyText: String,
-    postId: {
+    likeIds: [{
         type: ObjectId,
-        ref: 'Post'
-    },
+        ref: 'User'
+    }],
     userId: {
         type: ObjectId,
         ref: 'User'
     },
-    responseIds: [{
+    commentId: {
         type: ObjectId,
-        ref: 'Response'
-    }]
+        ref: 'Comment'
+    },
 }, { timestamps: true });
 
-const Comment = mongoose.model('Comment', CommentSchema);
+const Response = mongoose.model('Response', ResponseSchema);
 
-module.exports = Comment;
+module.exports = Response;
