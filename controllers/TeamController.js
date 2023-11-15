@@ -6,7 +6,6 @@ const TeamController = {
       const teamId = req.params._id;
       const members = req.body.members;
 
-      // Validate that members is an array of user IDs
       if (!Array.isArray(members)) {
         return res.status(400).send({ message: "Members should be an array of user IDs" });
       }
