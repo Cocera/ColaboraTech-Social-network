@@ -48,7 +48,18 @@ const ProjectController = {
 
   async delete(req, res, next) {
     try {
-      const project = await Project.findByIdAndDelete(req.params._id);
+const project = await Project.findById(req.params._id)
+    if (!project) {
+      return res.status(404).send({ message: "Project not found" });
+    }  
+      await Project.deleteOne({ _id: req.params._id });
+      await Team.deleteOne({ ProjectId: req.params._id });
+      await User.findByIdAndUpdate(
+        req.user._id,
+        { $pull: { projectId: req.params._id } },
+        { new: true }
+      );
+      
       res.send({message: "Project deleted", project});
     } catch (error) {
       console.error(error);

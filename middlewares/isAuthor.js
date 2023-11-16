@@ -2,6 +2,7 @@ const Post = require("../models/Post");
 const Comment = require("../models/Comment");
 const Response = require("../models/Response");
 const Team = require("../models/Team");
+const Project = require("../models/Project");
 
 const isAuthorPost = async(req, res, next) => {
     try {
@@ -43,10 +44,8 @@ const isAuthorResponse = async(req, res, next) => {
 };
 const isAuthorProject = async(req, res, next) => {
     try {
-        const team = await Team.findById(req.params._id);
-        console.log("userid",req.user._id)
-        console.log(team)
-        console.log(team.ProjectAdmin.toString())
+        const project = await Project.findById(req.params._id)
+        const team = await Team.findById(project.team);
         if(req.user.role =="admin"){
             return next()
         }

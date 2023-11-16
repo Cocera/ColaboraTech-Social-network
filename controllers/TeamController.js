@@ -26,6 +26,31 @@ const TeamController = {
       next(error);
     }
   },
+  async removeMembers(req, res, next) {
+    try {
+      const teamId = req.params._id;
+      const members = req.body.members;
+
+      if (!Array.isArray(members)) {
+        return res.status(400).send({ message: "Members should be an array of user IDs" });
+      }
+
+      const team = await Team.findByIdAndUpdate(
+        teamId,
+        { $pull: { members: { $in: members } } },
+        { new: true }
+      );
+      
+      if (!team) {
+        return res.status(404).send({ message: "Team not found" });
+      }
+
+      res.send({ message: "Members removed successfully", team });
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+  },
 
     async update(req,res,next) {
         try {
@@ -52,6 +77,7 @@ const TeamController = {
             .send({ message: "There was a problem trying to remove the team" });
         }
     },
+    
     async getAll(req,res) {
         try {
             const { page = 1, limit = 10 } = req.query;
