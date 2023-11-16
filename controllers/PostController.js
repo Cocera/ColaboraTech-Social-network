@@ -6,7 +6,12 @@ const PostController = {
     async create(req, res) { 
         try {
             const post = await Post.create({...req.body, userId: req.user._id});
-            res.status(201).send({message: "Post created successfully", post});
+            await User.findByIdAndUpdate(
+                req.user._id,
+                {$push: {postId: post._id}},
+                { new: true }
+            );
+            res.status(201).send({message: `${req.user.name} created post successfully`, post});
         } catch (error) {
             console.error(error);
             res.status(500).send({message: "Error during post creation", error})
@@ -16,6 +21,7 @@ const PostController = {
     async findAll(req, res) {
         try {
             const posts = await Post.find();
+
             res.status(200).send(posts);
         } catch (error) {
             console.error(error);
