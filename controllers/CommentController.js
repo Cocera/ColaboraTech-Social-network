@@ -87,18 +87,27 @@ const CommentController = {
 
     async delete(req, res) {
         try {
-            if (!req.params._id.match(/^[0-9a-fA-F]{24}$/)) {
+            if (!req.params.comment_id.match(/^[0-9a-fA-F]{24}$/)) {
                 return res.status(400).send({message: 'Invalid ID'});
             };
-            const commentById = await Comment.findById(req.params._id);
-            if (!postById) {
-                return res.status(400).send(`Comment with id ${req.params._id} not exists in DB`);
+            const commentById = await Comment.findById(req.params.comment_id);
+            if (!commentById) {
+                return res.status(400).send(`Comment with id ${req.params.comment_id} not exists in DB`);
             };
-            const post = await Post.findByIdAndDelete(req.params._id);
-            res.send({message: `Comment with id ${req.params._id} deleted`});
+
+            await Post.findByIdAndUpdate(
+                commentById.postId,
+                {$pull: {comments: req.params.comment_id}},
+                {new: true}
+            );
+
+            await Comment.findOneAndDelete(req.params.comment_id);
+
+            res.send({message: `${req.user.name}'s comment with id ${req.params.comment_id} deleted`});
+
         } catch (error) {
             console.error(error);
-            res.status(500).send({message: `Error trying to remove comment with id ${req.params._id}`, error});
+            res.status(500).send({message: `Error trying to remove comment with id ${req.params.comment_id}`, error});
         }
       }
 };

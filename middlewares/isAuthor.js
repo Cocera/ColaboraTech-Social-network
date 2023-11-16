@@ -21,12 +21,12 @@ const isAuthorPost = async(req, res, next) => {
 
 const isAuthorComment = async(req, res, next) => {
     try {
-        const comment = await Comment.findById(req.params._id);
+        const comment = await Comment.findById(req.params.comment_id);
         if(req.user.role =="admin"){
             return next()
         }
         if (comment.userId.toString() !== req.user._id.toString()) { 
-            return res.status(403).send({ message: `Comment with id ${req.params._id} is not yours`});
+            return res.status(403).send({ message: `Comment with id ${req.params.comment_id} is not yours`});
         }
         next();
     } catch (error) {
