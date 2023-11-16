@@ -21,7 +21,11 @@ const PostController = {
 
     async findAll(req, res) {
         try {
-            const posts = await Post.find();
+            const posts = await Post.find()
+                .populate({ path: 'userId', select: 'name' })
+                .populate("likes")
+                .populate("comments")
+                .exec();
             res.status(200).send(posts);
         } catch (error) {
             console.error(error);
