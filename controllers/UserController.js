@@ -122,6 +122,34 @@ const UserController = {
         }
     },
 
+    async getCurrentWithPostProjectFollowerCount(req, res) {
+        try {
+            const user = await User
+                .findById(req.user._id)
+                .populate("postId", "bodyText")
+                .populate("projectId", "title");
+            const followerCount = user.followers.length;
+            const followingCount = user.following.length;
+            res.send({message: "Your information: ", user, followerCount, followingCount});
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
+    async getCurrentWithPostProjectFollowers(req, res) {
+        try {
+            const user = await User
+                .findById(req.user._id)
+                .populate("postId", "bodyText")
+                .populate("projectId", "title")
+                .populate("followers", "name")
+                .populate("following", "name");
+            res.send({message: "Your information: ", user});
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
     async follow(req, res) {
         try {
             if (!req.params._id.match(/^[0-9a-fA-F]{24}$/)) {

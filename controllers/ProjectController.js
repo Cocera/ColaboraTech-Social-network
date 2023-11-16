@@ -1,5 +1,6 @@
 const Project = require("../models/Project");
 const Team = require("../models/Team");
+const User = require("../models/User");
 
 const ProjectController = {
   async create(req, res, next) {
@@ -9,13 +10,18 @@ const ProjectController = {
         ...req.body,
         ProjectId: project._id,
         TeamName: `${project.title} Team`,
-        ProjectAdmin: req.user._id, 
+        ProjectAdmin: req.user._id,
         members: [req.user._id]
       });
       await team.save();
       const updatedProject = await Project.findByIdAndUpdate(project._id, {
         $set: {
           team: team._id
+        }
+      }, {new: true});
+      await User.findByIdAndUpdate(req.user._id, {
+        $push: {
+          projectId: updatedProject._id
         }
       }, {new: true});
       res
