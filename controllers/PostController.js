@@ -68,17 +68,16 @@ const PostController = {
 
     async update(req, res) {
         try {
-            const paramsId = req.params._id;
-            const postById = await Post.findById({_id: paramsId});
-            if (!postById) {
+            if (!req.params._id.match(/^[0-9a-fA-F]{24}$/)) {
                 return res
                     .status(400)
-                    .send(`Id ${paramsId} not exists in DB`);
-            }
-            const post = await Post.findByIdAndUpdate(paramsId, req.body, {new: true});
-            res
-                .status(200)
-                .send({message: `Post with id ${paramsId} updated`, post});
+                    .send({message: "Invalid ID"});
+            };
+            const post = await Post.findByIdAndUpdate(req.params._id, req.body, {new: true});
+            if (!post) {
+                return res.status(400).send(`Id ${req.params._id} not exists in DB`);
+            };
+            res.status(200).send({message: `Post with id ${req.params._id} updated`, post});
         } catch (error) {
             console.error(error);
             res
