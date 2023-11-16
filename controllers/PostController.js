@@ -1,5 +1,6 @@
 const Post = require("../models/Post.js");
 const User = require("../models/User.js");
+const Comment = require("../models/Comment.js");
 
 const PostController = {
     async create(req, res) {
@@ -166,14 +167,33 @@ const PostController = {
 
     async delete(req, res) {
         try {
-            const postById = await Post.findById(paramsId);
-            if (!postById) {
+            if (!req.params._id.match(/^[0-9a-fA-F]{24}$/)) {
+                return res
+                    .status(400)
+                    .send({message: "Invalid ID"});
+            }
+            const postToDelete = await Post.findById(req.params._id);
+            if (!postToDelete) {
                 return res
                     .status(400)
                     .send(`Post with id ${req.params._id} not exists in DB`);
-            }
+            };
+
+            // await Post.deleteOne({_id: req.params._id});
+            // res.send({message: `Post with id ${req.params._id} deleted`});
+
+            await Comment.deleteMany({postId: postToDelete._id});
+
+            const userPullPost = await User.findByIdAndUpdate(
+                postToDelete.userId,
+                {$pull: {postId: postToDelete._id}},
+                {new: true}
+            );
+
             await Post.deleteOne({_id: req.params._id});
-            res.send({message: `Post with id ${req.params._id} deleted`});
+
+            res.status(200).send({message: `Post from ${userPullPost.name} with id ${req.params._id} deleted`});
+
         } catch (error) {
             console.error(error);
             res
