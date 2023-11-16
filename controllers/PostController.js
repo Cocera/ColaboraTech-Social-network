@@ -24,7 +24,7 @@ const PostController = {
             const allPosts = await Post.find()
                 .populate({ path: 'userId', select: 'name' })
                 .populate({ path: 'likes', select: 'name' })
-                .populate({ path: 'comments', select: 'name' }) // sacar tambien el bodyText
+                .populate({ path: 'comments', select: 'bodyText', populate: {path: 'userId', select: 'name'}})
                 .exec();
             res.status(200).send({
                 allPosts
@@ -39,16 +39,25 @@ const PostController = {
 
     async findById(req, res) {
         try {
+            if (!req.params._id.match(/^[0-9a-fA-F]{24}$/)) {
+                return res
+                    .status(400)
+                    .send({message: "Invalid ID"});
+            };
             const paramsId = req.params._id;
-            const postById = await Post.findById({_id: paramsId});
+            const postById = await Post.findById({_id: req.params._id})
+                .populate({ path: 'userId', select: 'name' })
+                .populate({ path: 'likes', select: 'name' })
+                .populate({ path: 'comments', select: 'bodyText', populate: {path: 'userId', select: 'name'}})
+                .exec();
             if (!postById) {
                 return res
                     .status(400)
-                    .send(`Id ${paramsId} not exists in DB`);
-            }
+                    .send(`Id ${req.params._id} not exists in DB`);
+            };
             res
                 .status(200)
-                .send({message: `Found post with id ${paramsId}`, postById});
+                .send({message: `Found post`, postById});
         } catch (error) {
             console.error(error);
             res
@@ -84,7 +93,7 @@ const PostController = {
                 return res
                     .status(400)
                     .send({message: "Invalid ID"});
-            }
+            };
             const post = await Post.findById(req.params._id);
             if (!post) {
                 return res
