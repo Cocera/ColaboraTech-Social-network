@@ -6,6 +6,9 @@ const Team = require("../models/Team");
 const isAuthorPost = async(req, res, next) => {
     try {
         const post = await Post.findById(req.params._id);
+        if(req.user.role =="admin"){
+            return next()
+        }
         if (post.userId.toString() !== req.user._id.toString()) { 
             return res.status(403).send({ message: `Post with id ${req.params._id} is not yours`});
         }
@@ -19,6 +22,9 @@ const isAuthorPost = async(req, res, next) => {
 const isAuthorComment = async(req, res, next) => {
     try {
         const comment = await Comment.findById(req.params._id);
+        if(req.user.role =="admin"){
+            return next()
+        }
         if (comment.userId.toString() !== req.user._id.toString()) { 
             return res.status(403).send({ message: `Comment with id ${req.params._id} is not yours`});
         }
@@ -32,6 +38,9 @@ const isAuthorComment = async(req, res, next) => {
 const isAuthorResponse = async(req, res, next) => {
     try {
         const response = await Response.findById(req.params._id);
+        if(req.user.role =="admin"){
+            return next()
+        }
         if (response.userId.toString() !== req.user._id.toString()) { 
             return res.status(403).send({ message: `Response with id ${req.params._id} is not yours`});
         }
@@ -44,9 +53,6 @@ const isAuthorResponse = async(req, res, next) => {
 const isAuthorProject = async(req, res, next) => {
     try {
         const team = await Team.findById(req.params._id);
-        console.log("userid",req.user._id)
-        console.log(team)
-        console.log(team.ProjectAdmin.toString())
         if(req.user.role =="admin"){
             return next()
         }

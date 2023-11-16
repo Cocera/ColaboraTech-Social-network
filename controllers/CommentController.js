@@ -21,12 +21,15 @@ const CommentController = {
         try {
             if (!req.params.comment_id.match(/^[0-9a-fA-F]{24}$/)) {
                 return res.status(400).send({message: 'Invalid ID'});
-            }; // Añadir validacion de si existe en DB
+            };
             const commentToUpdate = await Comment.findByIdAndUpdate(
                 req.params.comment_id,
                 req.body,
                 { new: true }
             );
+            if (!commentToUpdate) {
+                return res.status(400).send(`Id ${req.params._id} not exists in DB`);
+            };
             res.status(200).send({message: `Comment with id ${req.params.comment_id} updated`, bodyText: commentToUpdate.bodyText});
         } catch (error) {
             console.error(error);
