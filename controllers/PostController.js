@@ -24,7 +24,7 @@ const PostController = {
             const allPosts = await Post.find()
                 .populate({ path: 'userId', select: 'name' })
                 .populate({ path: 'likes', select: 'name' })
-                .populate("comments")
+                .populate({ path: 'comments', select: 'name' }) // sacar tambien el bodyText
                 .exec();
             res.status(200).send({
                 allPosts
@@ -158,20 +158,19 @@ const PostController = {
 
     async delete(req, res) {
         try {
-            const paramsId = req.params._id;
             const postById = await Post.findById(paramsId);
             if (!postById) {
                 return res
                     .status(400)
-                    .send(`Post with id ${paramsId} not exists in DB`);
+                    .send(`Post with id ${req.params._id} not exists in DB`);
             }
-            const post = await Post.findByIdAndDelete(paramsId);
-            res.send({message: `Post with id ${paramsId} deleted`});
+            await Post.deleteOne({_id: req.params._id});
+            res.send({message: `Post with id ${req.params._id} deleted`});
         } catch (error) {
             console.error(error);
             res
                 .status(500)
-                .send({message: `Error trying to remove post with id ${paramsId}`, error});
+                .send({message: `Error trying to remove post with id ${req.params._id}`, error});
         }
     }
 };
