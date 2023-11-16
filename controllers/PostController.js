@@ -179,9 +179,6 @@ const PostController = {
                     .send(`Post with id ${req.params._id} not exists in DB`);
             };
 
-            // await Post.deleteOne({_id: req.params._id});
-            // res.send({message: `Post with id ${req.params._id} deleted`});
-
             await Comment.deleteMany({postId: postToDelete._id});
 
             const userPullPost = await User.findByIdAndUpdate(
