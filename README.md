@@ -1,30 +1,14 @@
-# Backend Project ColaboraTech
-
-  <p align="center">
-
-### Project Requirements
-
- <h3 align="center">ColaboraTech</h3>
-
-  <p align="center">
-    <br />
-    <a href="https://github.com/Cocera/ColaboraTech-Social-network"><strong>Explore the documents »</strong></a>
-    <br />
-    <a href="https://github.com/Cocera/ColaboraTech-Social-network/issues">Report a Bug</a>
-  </p>
-</div>
+#Backend Project ColaboraTech
 
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
   <ol>
-        <li><a href="#preview">Preview</a></li>
         <li><a href="#objectives">Objectives</a></li>
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
-        <li><a href="#overview">Overview</a></li>
-         <li><a href="#built-with">Built With</a></li>
+        <li><a href="#project-workflow">Project workflow</a></li>
       </ul>   
     </li>
     <li>
@@ -35,28 +19,15 @@
       </ul>
     </li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#licence-&-developed-by:">Licence & developed by:</a></li>
   </ol>
 </details>
-
-<!-- PREVIEW -->
-
-## Preview
-
-- Postman create product endpoint overview gif
-
-<img style="display: block; 
-           margin-left: auto;
-           margin-right: auto;" 
-      src='#'
-      alt="alt"/>
 
 <!-- ABOUT THE OBJECTIVES -->
 
 ## Objectives
 
-### Create a e-commerce API fulfilling the following requirements:
+### Create a social network API fulfilling the following requirements:
 
  <ul>
     <li>User registration using <a href="https://www.npmjs.com/package/bcrypt">Bcrypt.</a></li>
@@ -64,23 +35,19 @@
     <li>Admin role verification and permissions middleware.</a></li>
     <li>CRUD endpoints.</a></li>
     <li>Implement validations in user and product creation to eliminate possibility of null data fields</a></li>
-    <li></a></li>
+    <li>Implement followers</a></li>
     <li>Ability to like/unlike posts.</a></li>
   </ul>
 
-<!-- ABOUT THE PROJECT -->
+ <h1 align="center">ColaboraTech</h1>
+
+ <!-- ABOUT THE PROJECT -->
 
 ## About The Project
 
  ColaboraTech is a social network exclusively for the tech sector that empowers junior talent, connecting young people with experts in technology areas such as UX-UI, Development, Data Science and Cybersecurity. It focuses on collaboration between emerging and established professionals, fostering the creation of projects through dynamic teams and open participation. It recognizes the value of each member by allowing feedback and support for projects under development, cultivating an enriching environment for all.
 
-
-<p align="right">(<a href="#backend-project-e-commerce">back to top</a>)</p>
-
-
-<p align="right">(<a href="#backend-project-e-commerce">back to top</a>)</p>
-
-### Built With
+ ### Built With:
 
 * [![Node][Node.JS]][Node.JS-url]
 * [![Express][Express.js]][Express.js-url]
@@ -89,8 +56,19 @@
 * [![Mongoose][Mongoose]][Mongoose-url]
 * [![JWT][JWT]][JWT-url]
 * [![Postman][Postman]][Postman-url]
+* [![Swagger][Swagger]][Swagger-url]
 
-<p align="right">(<a href="#backend-project-e-commerce">back to top</a>)</p>
+<p align="right">(<a href="##Backend-Project-ColaboraTech">back to top</a>)</p>
+
+<!-- PROJECT WORKFLOW GIF -->
+
+## Project workflow
+
+<p align="center">
+  <img src="#" width="900">
+</p>
+
+<p align="right">(<a href="##Backend-Project-ColaboraTech">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 
@@ -104,7 +82,7 @@ To get a local copy up and running follow these simple example steps.
 This is an example of how to list things you need to use the software and how to install them.
 * npm
   ```sh
-  npm install express mysql2 sequelize bcryptjs jsonwebtoken
+  npm install express mongoose sequelize bcryptjs jsonwebtoken dotenv swagger-ui-express
   ```
 
 ### Installation
@@ -124,7 +102,7 @@ Below is an example of how you can instruct your audience on installing and sett
     npm start
     ```
 
-<p align="right">(<a href="#backend-project-e-commerce">back to top</a>)</p>
+<p align="right">(<a href="##Backend-Project-ColaboraTech">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
 
@@ -141,62 +119,41 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/YourName`)
 5. Open a Pull Request
 
-<p align="right">(<a href="#backend-project-e-commerce">back to top</a>)</p>
+<p align="center">
+    <br />
+    <a href="https://github.com/Cocera/ColaboraTech-Social-network"><strong>Explore the documents »</strong></a>
+    <br />
+    <a href="https://github.com/Cocera/ColaboraTech-Social-network/issues">Report a Bug</a>
+  </p>
+</div>
 
-<!-- LICENSE -->
-
-## License
-
-This project is under license of Frances Morales Velilla, Álvaro Cócera Adail, Francesc Alberola Piqueres
-
-<p align="right">(<a href="#backend-project-e-commerce">back to top</a>)</p>
+<p align="right">(<a href="##Backend-Project-ColaboraTech">back to top</a>)</p>
 
 <!-- CONTACT -->
-
-## Contact
-
-  <p align="center">
-Frances Morales Velilla
-<a href = "mailto:frances0688@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
-<a href="https://www.linkedin.com/in/frances-morales/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
-
-</p>
-<a href = "mailto:frances0688@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
-<a href="https://www.linkedin.com/in/frances-morales/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
-
-</p>
-<a href = "mailto:frances0688@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
-<a href="https://www.linkedin.com/in/frances-morales/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
-
-Álvaro Cócera Adail
-<a href = "mailto:alcocera@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
-<a href="https://www.linkedin.com/in/alvaro-cocera-adail/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
-
-</p>
-<a href = "mailto:alcocera@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
-<a href="https://www.linkedin.com/in/frances-morales/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
-
-</p>
-<a href = "mailto:alcocera@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
-<a href="https://www.linkedin.com/in/frances-morales/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
-Francesc Alberola Piqueres
-<a href = "mailto:f.alberola@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
-<a href="https://www.linkedin.com/in/francescalberola/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
-
-</p>
-<a href = "mailto:f.alberola@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
-<a href="https://www.linkedin.com/in/frances-morales/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
-
-</p>
-<a href = "mailto:f.alberola@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
-<a href="https://www.linkedin.com/in/frances-morales/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
-</p>
-
-<p align="right">(<a href="#backend-project-e-commerce">back to top</a>)</p>
-
 ---
 
-Developed by [Frances Morales Velilla, Alvaro Cocera Adail, Francesc Alberola Piqueres](https://github.com/frances0688)
+## Licence & developed by:
+
+  <p align="center">
+
+- Frances Morales Velilla
+<a href = "mailto:frances0688@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+<a href="https://www.linkedin.com/in/frances-morales/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
+<a href="https://github.com/frances0688" target="_blank"><img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a>
+
+- Álvaro Cócera Adail
+<a href = "mailto:alcocera@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+<a href="https://www.linkedin.com/in/alvaro-cocera-adail/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
+<a href="https://github.com/Cocera" target="_blank"><img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a>
+
+- Francesc Alberola Piqueres
+<a href = "mailto:f.alberola@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+<a href="https://www.linkedin.com/in/francescalberola/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
+<a href="https://github.com/cescalberola" target="_blank"><img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a>
+</p>
+
+<p align="right">(<a href="##Backend-Project-ColaboraTech">back to top</a>)</p>
+
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
@@ -229,8 +186,12 @@ Developed by [Frances Morales Velilla, Alvaro Cocera Adail, Francesc Alberola Pi
 [Vercel-url]: https://vercel.com/
 [MongoDB]: https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white
 [MongoDB-url]: https://www.mongodb.com/es
-[Swagger-url]: https://imgs.search.brave.com/7SZ5Qmm32QphZoYkDukFsQCzyEmZKUXIGEltLnne4Go/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9sb2dv/cy1kb3dubG9hZC5j/b20vd3AtY29udGVu/dC91cGxvYWRzLzIw/MjEvMDEvU3dhZ2dl/cl9Mb2dvLTcwMHg3/MDAucG5n
+[Swagger]: https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white
 [Express.js]: https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB
+[GitHub]: https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white
+[Mongoose]: https://img.shields.io/badge/Mongoose-880000.svg?style=for-the-badge&logo=Mongoose&logoColor=white
+[Swagger-url]: https://swagger.io/
+[Mongoose-url]: https://mongoosejs.com/
 [Express.js-url]: https://expressjs.com/
 [Node.JS]: https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white
 [Node.JS-url]: https://nodejs.org/en/
@@ -240,4 +201,3 @@ Developed by [Frances Morales Velilla, Alvaro Cocera Adail, Francesc Alberola Pi
 [React-url]: https://es.reactjs.org/
 [Postman]: https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white
 [Postman-url]: https://www.postman.com/
-[Swagger-url]: https://swagger.io/
