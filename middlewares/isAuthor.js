@@ -3,7 +3,6 @@ const Comment = require("../models/Comment");
 const Response = require("../models/Response");
 const Team = require("../models/Team");
 const Project = require("../models/Project");
-const Project = require("../models/Project");
 
 const isAuthorPost = async(req, res, next) => {
     try {
