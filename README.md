@@ -1,9 +1,12 @@
 # Backend Project ColaboraTech
 
+  <p align="center">
+
+### Project Requirements
+
  <h3 align="center">ColaboraTech</h3>
 
   <p align="center">
-    This project consists on the creation of an online store (e-commerce) using the knowledge acquired in Node and Express technologies, along with MySQL and Sequelize ORM.
     <br />
     <a href="https://github.com/Cocera/ColaboraTech-Social-network"><strong>Explore the documents »</strong></a>
     <br />
@@ -61,33 +64,19 @@
     <li>Admin role verification and permissions middleware.</a></li>
     <li>CRUD endpoints.</a></li>
     <li>Implement validations in user and product creation to eliminate possibility of null data fields</a></li>
-    <li>At least one Many to Many relationship and another One to Many.</a></li>
-    <li>Use of seeders.</a></li>
+    <li></a></li>
+    <li>Ability to like/unlike posts.</a></li>
   </ul>
 
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
 
-The online store (E-commerce) CraftyCrates sells boxes of multiple sizes containing different products of a specific hobby theme or category.  The boxes may contain 1-3 products depending on size, and price is determined by box size chosen.
-
-- The online store consists of 6 entities of multiple types of relationships (1:1, 1:N, M:M).  It also includes a super M:M relationship where 2 intermediate tables are called to access all information.
-- Users can register, login, view products and themes, create an order selecting the box size and theme, and view their orders with products included in the box.
-- Admin has permission to execute all endpoints, including the deletion of users, creation of new products,themes, and box sizes, and view of all created orders.
+ ColaboraTech is a social network exclusively for the tech sector that empowers junior talent, connecting young people with experts in technology areas such as UX-UI, Development, Data Science and Cybersecurity. It focuses on collaboration between emerging and established professionals, fostering the creation of projects through dynamic teams and open participation. It recognizes the value of each member by allowing feedback and support for projects under development, cultivating an enriching environment for all.
 
 
 <p align="right">(<a href="#backend-project-e-commerce">back to top</a>)</p>
 
-### Overview
-
-<overview>
-  <ol>
-    <li>MySQL general overview</li>
-    <img src='./assets/SQLWorkbench.png' alt="SQL Workbench overview" style="height: 50vh"/></br>
-    <li>SQL tables and relationships diagram</li>
-    <img src='./assets/CraftyCrates_SQL_diagram.png' alt="SQL tables diagram" style="height: 75vh"/>
-  </ol>
-</overview>
 
 <p align="right">(<a href="#backend-project-e-commerce">back to top</a>)</p>
 
@@ -128,7 +117,7 @@ Below is an example of how you can instruct your audience on installing and sett
    ```
 2. Install NPM packages
    ```sh
-   npm install express mysql2 sequelize bcryptjs jsonwebtoken
+   npm install express mongoose sequelize bcryptjs jsonwebtoken dotenv swagger-ui-express
    ```
 3. Ready to start!
     ```sh
@@ -168,27 +157,46 @@ This project is under license of Frances Morales Velilla, Álvaro Cócera Adail,
 
   <p align="center">
 Frances Morales Velilla
+<a href = "mailto:frances0688@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+<a href="https://www.linkedin.com/in/frances-morales/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
+
+</p>
+<a href = "mailto:frances0688@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+<a href="https://www.linkedin.com/in/frances-morales/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
+
+</p>
+<a href = "mailto:frances0688@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+<a href="https://www.linkedin.com/in/frances-morales/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
+
 Álvaro Cócera Adail
+<a href = "mailto:alcocera@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+<a href="https://www.linkedin.com/in/alvaro-cocera-adail/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
+
+</p>
+<a href = "mailto:alcocera@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+<a href="https://www.linkedin.com/in/frances-morales/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
+
+</p>
+<a href = "mailto:alcocera@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+<a href="https://www.linkedin.com/in/frances-morales/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
 Francesc Alberola Piqueres
+<a href = "mailto:f.alberola@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+<a href="https://www.linkedin.com/in/francescalberola/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
 
-<a href = "mailto:frances0688@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+</p>
+<a href = "mailto:f.alberola@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
 <a href="https://www.linkedin.com/in/frances-morales/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
 
 </p>
-<a href = "mailto:frances0688@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+<a href = "mailto:f.alberola@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
 <a href="https://www.linkedin.com/in/frances-morales/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
-
-</p>
-<a href = "mailto:frances0688@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
-<a href="https://www.linkedin.com/in/frances-morales/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
-
 </p>
 
 <p align="right">(<a href="#backend-project-e-commerce">back to top</a>)</p>
 
 ---
 
-Developed by [Frances Morales Velilla, Alvaro Cocera Adail, Francesc ALberola Piqueres](https://github.com/frances0688)
+Developed by [Frances Morales Velilla, Alvaro Cocera Adail, Francesc Alberola Piqueres](https://github.com/frances0688)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
@@ -221,6 +229,7 @@ Developed by [Frances Morales Velilla, Alvaro Cocera Adail, Francesc ALberola Pi
 [Vercel-url]: https://vercel.com/
 [MongoDB]: https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white
 [MongoDB-url]: https://www.mongodb.com/es
+[Swagger-url]: https://imgs.search.brave.com/7SZ5Qmm32QphZoYkDukFsQCzyEmZKUXIGEltLnne4Go/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9sb2dv/cy1kb3dubG9hZC5j/b20vd3AtY29udGVu/dC91cGxvYWRzLzIw/MjEvMDEvU3dhZ2dl/cl9Mb2dvLTcwMHg3/MDAucG5n
 [Express.js]: https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB
 [Express.js-url]: https://expressjs.com/
 [Node.JS]: https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white
@@ -231,3 +240,4 @@ Developed by [Frances Morales Velilla, Alvaro Cocera Adail, Francesc ALberola Pi
 [React-url]: https://es.reactjs.org/
 [Postman]: https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white
 [Postman-url]: https://www.postman.com/
+[Swagger-url]: https://swagger.io/
