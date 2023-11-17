@@ -1,11 +1,68 @@
 #Backend Project ColaboraTech
 
-### Project Requirements
+# Project Requirements - REST API
 
- ColaboraTech is a social network exclusively for the tech sector that empowers junior talent, connecting young people with experts in technology areas such as UX-UI, Development, Data Science and Cybersecurity. It focuses on collaboration between emerging and established professionals, fostering the creation of projects through dynamic teams and open participation. It recognizes the value of each member by allowing feedback and support for projects under development, cultivating an enriching environment for all.
+The project requires the development of a REST API that meets specific functionalities and technical criteria. The API is expected to address the following needs:
+
+## Key Functionalities:
+
+1. **User Registration and Authentication:**
+   - Implementation of user registration using Bcrypt for security.
+   - Provision of a login system with token generation and middleware usage.
+
+2. **CRUD Operations:**
+   - Capability to Create, Read, Update, and Delete data (CRUD).
+
+3. **Interaction with Posts:**
+   - Ability to give/remove "likes" to posts.
+   - Displaying posts along with their authors and associated comments.
+   - Searching for posts by name or ID.
+   - Validation of fields when creating a post and pagination (10 per page).
+
+## Technical Requirements:
+
+1. **Code Management and Repository:**
+   - Use of branches in Git, maintaining a structure with two branches at the end: master or main and develop.
+   - Presentation of a comprehensive README with detailed information.
+
+2. **Specific Technologies:**
+   - Utilization of MongoDB with Mongoose and Express for API development.
+
+3. **Version Control and Project Evaluation:**
+   - Public repository on GitHub, valuing the presence of branches and commits with high readability for project progress analysis.
+
+## Specific Endpoints:
+
+1. **Posts:**
+   - Creation, update, and deletion of posts (authentication required).
+   - Displaying posts with their authors and associated comments.
+   - Searching by name or ID, field validation when creating a post, and pagination.
+
+2. **Comments:**
+   - Creation of comments on specific posts.
+   - Implementation of middleware for authorship verification in comments.
+
+3. **Users:**
+   - Secure user registration with field validation.
+   - Login using Bcrypt and JWT.
+   - Retrieval of information for the connected user and logout option.
+
+## Extras (Optional):
+
+- Implementation of middleware to verify authorship in comments and posts.
+- Addition of images to posts, comments, or user profiles.
+- Development of a follower system with the option to follow/unfollow.
+- Email confirmation for registration.
+- Additional validations in login.
+- Generation of endpoint documentation.
+- CRUD operations for comments and "likes".
+
+In summary, a comprehensive API is required that fulfills multiple functionalities, ensures security, adopts specific technologies, and allows the inclusion of additional features to enhance the user experience.
 
 
  <h3 align="center">ColaboraTech</h3>
+
+<!-- PROJECT WORKFLOW GIF -->
 
   <p align="center">
     <br />
