@@ -2,15 +2,18 @@ const mongoose = require("mongoose");
 const ObjectId = mongoose.SchemaTypes.ObjectId;
 
 const TeamInvitationSchema = new mongoose.Schema({
-    UserId: {
+    userId: {
         type: ObjectId,
         ref: "User"
     },
-    TeamId: {
+    teamId: {
         type: ObjectId,
         ref: "Team"
     },
-    accepted: Boolean
+    status: {
+        type: String,
+        enum: ["pending", "accepted", "declined"]
+    }
 }, {timestamps: true});
 
 const Invitation = mongoose.model("Invitation", TeamInvitationSchema);
