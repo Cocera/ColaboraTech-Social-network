@@ -1,5 +1,6 @@
 const Post = require("../models/Post.js");
 const User = require("../models/User.js");
+const Comment = require("../models/Comment.js");
 
 const PostController = {
     async create(req, res) {
@@ -21,8 +22,14 @@ const PostController = {
 
     async findAll(req, res) {
         try {
-            const posts = await Post.find();
-            res.status(200).send(posts);
+            const allPosts = await Post.find()
+                .populate({ path: 'userId', select: 'name' })
+                .populate({ path: 'likes', select: 'name' })
+                .populate({ path: 'comments', select: 'bodyText', populate: {path: 'userId', select: 'name'}})
+                .exec();
+            res.status(200).send({
+                allPosts
+            });
         } catch (error) {
             console.error(error);
             res
@@ -33,16 +40,25 @@ const PostController = {
 
     async findById(req, res) {
         try {
+            if (!req.params._id.match(/^[0-9a-fA-F]{24}$/)) {
+                return res
+                    .status(400)
+                    .send({message: "Invalid ID"});
+            };
             const paramsId = req.params._id;
-            const postById = await Post.findById({_id: paramsId});
+            const postById = await Post.findById({_id: req.params._id})
+                .populate({ path: 'userId', select: 'name' })
+                .populate({ path: 'likes', select: 'name' })
+                .populate({ path: 'comments', select: 'bodyText', populate: {path: 'userId', select: 'name'}})
+                .exec();
             if (!postById) {
                 return res
                     .status(400)
-                    .send(`Id ${paramsId} not exists in DB`);
-            }
+                    .send(`Id ${req.params._id} not exists in DB`);
+            };
             res
                 .status(200)
-                .send({message: `Found post with id ${paramsId}`, postById});
+                .send({message: `Found post`, postById});
         } catch (error) {
             console.error(error);
             res
@@ -51,19 +67,49 @@ const PostController = {
         }
     },
 
+    // async getPostsByName(req, res) { // ----------------- DEVUELVE ARRAY VACIA
+    //     try {
+    //         const posts = await Post.find({
+    //             $text: {
+    //                 $search: req.params.text,
+    //             }}
+    //         );
+    //         if (posts.length == 0) {
+    //             return res.send({message: `No posts found with "${req.params.text}"`})
+    //         };
+    //         res.send(posts);
+    //     } catch (error) {
+    //       console.error(error);
+    //       res.status(500).send(error);
+    //     }
+    // },
+
+    // async getPostsByName(req, res) {
+    //     try {
+    //       if (req.params.text.length>20){
+    //         return res.status(400).send('Búsqueda demasiado larga')
+    //       }
+    //       const text = new RegExp(req.params.text, "i");
+    //       const posts = await Post.find({text});
+    //       res.send(posts);
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    // },
+    
+
     async update(req, res) {
         try {
-            const paramsId = req.params._id;
-            const postById = await Post.findById({_id: paramsId});
-            if (!postById) {
+            if (!req.params._id.match(/^[0-9a-fA-F]{24}$/)) {
                 return res
                     .status(400)
-                    .send(`Id ${paramsId} not exists in DB`);
-            }
-            const post = await Post.findByIdAndUpdate(paramsId, req.body, {new: true});
-            res
-                .status(200)
-                .send({message: `Post with id ${paramsId} updated`, post});
+                    .send({message: "Invalid ID"});
+            };
+            const post = await Post.findByIdAndUpdate(req.params._id, req.body, {new: true});
+            if (!post) {
+                return res.status(400).send(`Id ${req.params._id} not exists in DB`);
+            };
+            res.status(200).send({message: `Post with id ${req.params._id} updated`, post});
         } catch (error) {
             console.error(error);
             res
@@ -78,7 +124,7 @@ const PostController = {
                 return res
                     .status(400)
                     .send({message: "Invalid ID"});
-            }
+            };
             const post = await Post.findById(req.params._id);
             if (!post) {
                 return res
@@ -152,20 +198,35 @@ const PostController = {
 
     async delete(req, res) {
         try {
-            const paramsId = req.params._id;
-            const postById = await Post.findById(paramsId);
-            if (!postById) {
+            if (!req.params._id.match(/^[0-9a-fA-F]{24}$/)) {
                 return res
                     .status(400)
-                    .send(`Post with id ${paramsId} not exists in DB`);
+                    .send({message: "Invalid ID"});
             }
-            const post = await Post.findByIdAndDelete(paramsId);
-            res.send({message: `Post with id ${paramsId} deleted`});
+            const postToDelete = await Post.findById(req.params._id);
+            if (!postToDelete) {
+                return res
+                    .status(400)
+                    .send(`Post with id ${req.params._id} not exists in DB`);
+            };
+
+            await Comment.deleteMany({postId: postToDelete._id});
+
+            const userPullPost = await User.findByIdAndUpdate(
+                postToDelete.userId,
+                {$pull: {postId: postToDelete._id}},
+                {new: true}
+            );
+
+            await Post.deleteOne({_id: req.params._id});
+
+            res.status(200).send({message: `Post from ${userPullPost.name} with id ${req.params._id} deleted`});
+
         } catch (error) {
             console.error(error);
             res
                 .status(500)
-                .send({message: `Error trying to remove post with id ${paramsId}`, error});
+                .send({message: `Error trying to remove post with id ${req.params._id}`, error});
         }
     }
 };
