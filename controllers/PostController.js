@@ -67,36 +67,22 @@ const PostController = {
         }
     },
 
-    // async getPostsByName(req, res) { // ----------------- DEVUELVE ARRAY VACIA
-    //     try {
-    //         const posts = await Post.find({
-    //             $text: {
-    //                 $search: req.params.text,
-    //             }}
-    //         );
-    //         if (posts.length == 0) {
-    //             return res.send({message: `No posts found with "${req.params.text}"`})
-    //         };
-    //         res.send(posts);
-    //     } catch (error) {
-    //       console.error(error);
-    //       res.status(500).send(error);
-    //     }
-    // },
-
-    // async getPostsByName(req, res) {
-    //     try {
-    //       if (req.params.text.length>20){
-    //         return res.status(400).send('Búsqueda demasiado larga')
-    //       }
-    //       const text = new RegExp(req.params.text, "i");
-    //       const posts = await Post.find({text});
-    //       res.send(posts);
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
-    // },
-    
+    async getPostsByName(req, res) {
+        try {
+            const posts = await Post.find({
+                $text: {
+                    $search: req.params.text,
+                }}
+            );
+            if (posts.length == 0) {
+                return res.send({message: `No posts found with "${req.params.text}"`})
+            };
+            res.send(posts);
+        } catch (error) {
+          console.error(error);
+          res.status(500).send(error);
+        }
+    },
 
     async update(req, res) {
         try {
