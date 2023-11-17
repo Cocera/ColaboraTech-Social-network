@@ -52,7 +52,6 @@
 * [![Node][Node.JS]][Node.JS-url]
 * [![Express][Express.js]][Express.js-url]
 * [![MongoDB][MongoDB]][MongoDB-url]
-* [![Sequelize][Sequelize]][Sequelize-url]
 * [![Mongoose][Mongoose]][Mongoose-url]
 * [![JWT][JWT]][JWT-url]
 * [![Postman][Postman]][Postman-url]
