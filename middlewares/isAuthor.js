@@ -6,8 +6,8 @@ const Project = require("../models/Project");
 const isAuthorPost = async(req, res, next) => {
     try {
         const post = await Post.findById(req.params._id);
-        if(req.user.role =="admin"){
-            return next()
+        if (req.user.role == "admin") {
+            return next();
         }
         if (post.userId.toString() !== req.user._id.toString()) {
             return res
@@ -26,8 +26,8 @@ const isAuthorPost = async(req, res, next) => {
 const isAuthorComment = async(req, res, next) => {
     try {
         const comment = await Comment.findById(req.params.comment_id);
-        if(req.user.role =="admin"){
-            return next()
+        if (req.user.role == "admin") {
+            return next();
         }
         if (comment.userId.toString() !== req.user._id.toString()) {
             return res
@@ -60,8 +60,12 @@ const isAuthorProject = async(req, res, next) => {
         console.error(error);
         return res
             .status(500)
-            .send({error, message: "There was a problem verifying the authorship of the comment"});
+            .send({error, message: "There was a problem verifying the authorship of the project"});
     }
 };
 
-module.exports = { isAuthorComment, isAuthorPost, isAuthorProject };
+module.exports = {
+    isAuthorComment,
+    isAuthorPost,
+    isAuthorProject
+};
