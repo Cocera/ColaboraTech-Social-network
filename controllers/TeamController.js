@@ -4,35 +4,42 @@ const Team = require("../models/Team.js");
 const TeamController = {
   async addMembers(req, res, next) {
     try {
+
+      if (!req.params._id.match(/^[0-9a-fA-F]{24}$/)) {
+        return res.status(400).send({message: "Invalid ID"});
+      } else if (!Array.isArray(req.body.members)) {
+        return res.status(400).send({message: "Members should be an array of user IDs"});
+      };
+
+      
       const members = req.body.members;
-
-      if (!Array.isArray(members)) {
-        return res
-          .status(400)
-          .send({message: "Members should be an array of user IDs"});
-      }
-
       const project = await Project.findById(req.params._id);
-      const team = await Team.findByIdAndUpdate(project.team, {
-        $push: {
-          members: {
-            $each: members
+      const projectTeam = await Team.findById(project.team);
+
+      
+
+      if (!project) {
+        return res.status(400).send(`Project id: ${req.params._id} does not exist in DB`);
+      } else if (projectTeam.members.includes(members)) {
+        console.log(members)
+      } else {
+        await Team.findByIdAndUpdate(project.team, {
+          $push: {
+            members: {
+              $each: members
+            }
           }
-        }
-      }, {new: true});
+        }, {new: true});
+      };
 
-      if (!team) {
-        return res
-          .status(404)
-          .send({message: "Team not found"});
-      }
+      res.send({message: `Members with id ${members} added successfully to project ${project.title}`});
 
-      res.send({message: "Members added successfully", team});
     } catch (error) {
       console.error(error);
       next(error);
     }
   },
+
   async removeMembers(req, res, next) {
     try {
       const members = req.body.members;
