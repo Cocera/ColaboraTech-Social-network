@@ -72,7 +72,7 @@ const TeamController = {
         }
       };
 
-      res.send({message: "Members removed successfully", team});
+      res.send({message: "Members removed successfully"});
 
     } catch (error) {
       console.error(error);
