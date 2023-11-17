@@ -13,6 +13,7 @@ app.use("/projects", require("./routes/projects"));
 app.use("/posts", require("./routes/posts"));
 app.use("/comments", require("./routes/comments"));
 app.use("/teams", require("./routes/teams"));
+app.use("/invitations", require("./routes/teamInvitations"));
 
 app.use(handleTypeError);
 
