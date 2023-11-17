@@ -60,7 +60,7 @@ const isAuthorProject = async(req, res, next) => {
         console.error(error);
         return res
             .status(500)
-            .send({error, message: "There was a problem verifying the authorship of the comment"});
+            .send({error, message: "There was a problem verifying the authorship of the project"});
     }
 };
 
