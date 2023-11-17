@@ -1,12 +1,14 @@
 const Post = require("../models/Post");
 const Comment = require("../models/Comment");
-const Response = require("../models/Response");
 const Team = require("../models/Team");
 const Project = require("../models/Project");
 
 const isAuthorPost = async(req, res, next) => {
     try {
         const post = await Post.findById(req.params._id);
+        if(req.user.role =="admin"){
+            return next()
+        }
         if (post.userId.toString() !== req.user._id.toString()) {
             return res
                 .status(403)
@@ -23,7 +25,10 @@ const isAuthorPost = async(req, res, next) => {
 
 const isAuthorComment = async(req, res, next) => {
     try {
-        const comment = await Comment.findById(req.params._id);
+        const comment = await Comment.findById(req.params.comment_id);
+        if(req.user.role =="admin"){
+            return next()
+        }
         if (comment.userId.toString() !== req.user._id.toString()) {
             return res
                 .status(403)
@@ -38,22 +43,6 @@ const isAuthorComment = async(req, res, next) => {
     }
 };
 
-const isAuthorResponse = async(req, res, next) => {
-    try {
-        const response = await Response.findById(req.params._id);
-        if (response.userId.toString() !== req.user._id.toString()) {
-            return res
-                .status(403)
-                .send({message: `Response with id ${req.params._id} is not yours`});
-        }
-        next();
-    } catch (error) {
-        console.error(error);
-        return res
-            .status(500)
-            .send({error, message: "There was a problem verifying the authorship of the response"});
-    }
-};
 const isAuthorProject = async(req, res, next) => {
     try {
         const project = await Project.findById(req.params._id);
@@ -71,13 +60,8 @@ const isAuthorProject = async(req, res, next) => {
         console.error(error);
         return res
             .status(500)
-            .send({error, message: "There was a problem verifying the authorship of the team"});
+            .send({error, message: "There was a problem verifying the authorship of the comment"});
     }
 };
 
-module.exports = {
-    isAuthorComment,
-    isAuthorPost,
-    isAuthorResponse,
-    isAuthorProject
-};
+module.exports = { isAuthorComment, isAuthorPost, isAuthorProject };
