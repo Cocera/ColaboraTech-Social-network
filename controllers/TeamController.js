@@ -65,28 +65,6 @@ const TeamController = {
     }
   },
 
-  async update(req, res, next) {
-    try {
-      const team = await Team.findByIdAndUpdate(req.params._id, req.body, {new: true});
-      res.send({message: "team successfully updated", team});
-    } catch (error) {
-      console.error(error);
-      next(error);
-    }
-  },
-  async delete(req, res, next) {
-    try {
-      const team = await Team.findByIdAndDelete(req.params._id);
-      res.send({message: "Team deleted", team});
-    } catch (error) {
-      console.error(error);
-      next(error);
-      res
-        .status(500)
-        .send({message: "There was a problem trying to remove the team"});
-    }
-  },
-
   async getAll(req, res) {
     try {
       const {
@@ -98,15 +76,6 @@ const TeamController = {
         .limit(limit)
         .skip((page - 1) * limit);
       res.send(teams);
-    } catch (error) {
-      console.error(error);
-    }
-  },
-  async getById(req, res) {
-    try {
-      const project = await Project.findById(req.params._id);
-      const team = await Team.findById(project.team);
-      res.send(team);
     } catch (error) {
       console.error(error);
     }

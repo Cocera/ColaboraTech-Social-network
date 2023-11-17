@@ -143,7 +143,8 @@ const UserController = {
                 .populate("postId", "bodyText")
                 .populate("projectId", "title")
                 .populate("followers", "name")
-                .populate("following", "name");
+                .populate("following", "name")
+                .populate("favProjects", "title");
             res.send({message: "Your information: ", user});
         } catch (error) {
             console.error(error);
