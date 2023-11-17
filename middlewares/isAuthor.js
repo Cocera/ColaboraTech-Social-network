@@ -29,8 +29,10 @@ const isAuthorComment = async(req, res, next) => {
         if(req.user.role =="admin"){
             return next()
         }
-        if (comment.userId.toString() !== req.user._id.toString()) { 
-            return res.status(403).send({ message: `Comment with id ${req.params.comment_id} is not yours`});
+        if (comment.userId.toString() !== req.user._id.toString()) {
+            return res
+                .status(403)
+                .send({message: `Comment with id ${req.params._id} is not yours`});
         }
         next();
     } catch (error) {
@@ -58,9 +60,8 @@ const isAuthorProject = async(req, res, next) => {
         console.error(error);
         return res
             .status(500)
-            .send({error, message: "There was a problem verifying the authorship of the team"});
+            .send({error, message: "There was a problem verifying the authorship of the comment"});
     }
 };
 
 module.exports = { isAuthorComment, isAuthorPost, isAuthorProject };
-
