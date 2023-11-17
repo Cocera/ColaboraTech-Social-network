@@ -48,10 +48,10 @@ const ProjectController = {
 
   async delete(req, res, next) {
     try {
-const project = await Project.findById(req.params._id)
-    if (!project) {
-      return res.status(404).send({ message: "Project not found" });
-    }  
+      const project = await Project.findById(req.params._id)
+      if (!project) {
+        return res.status(404).send({ message: "Project not found" });
+      }  
       await Project.deleteOne({ _id: req.params._id });
       await Team.deleteOne({ ProjectId: req.params._id });
       await User.findByIdAndUpdate(
@@ -76,10 +76,12 @@ const project = await Project.findById(req.params._id)
         page = 1,
         limit = 10
       } = req.query;
-      const projects = await Project
-        .find()
+      const projects = await Project.find()
         .limit(limit)
-        .skip((page - 1) * limit);
+        .skip((page - 1) * limit)
+        .populate({ path: 'team', populate: {path: 'members', select: 'name'}})
+        .populate({ path: 'favorites', select: 'name'})
+        .exec();
       res.send(projects);
     } catch (error) {
       console.error(error);
@@ -92,7 +94,10 @@ const project = await Project.findById(req.params._id)
         $text: {
           $search: req.params.name
         }
-      });
+      })
+        .populate({ path: 'team', populate: {path: 'members', select: 'name'}})
+        .populate({ path: 'favorites', select: 'name'})
+        .exec();
       res.send(projects);
     } catch (error) {
       console.error(error);
@@ -101,7 +106,20 @@ const project = await Project.findById(req.params._id)
 
   async getById(req, res) {
     try {
-      const project = await Project.findById(req.params._id);
+      if (!req.params._id.match(/^[0-9a-fA-F]{24}$/)) {
+        return res
+            .status(400)
+            .send({message: "Invalid ID"});
+      };
+      const project = await Project.findById(req.params._id)
+        .populate({ path: 'team', populate: {path: 'members', select: 'name'}})
+        .populate({ path: 'favorites', select: 'name'})
+        .exec();
+      if (!project) {
+        return res
+          .status(400)
+          .send(`Id ${req.params._id} not exists in DB`);
+      };
       res.send(project);
     } catch (error) {
       console.error(error);
