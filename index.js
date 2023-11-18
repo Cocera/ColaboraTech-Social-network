@@ -3,7 +3,7 @@ const app = express();
 require("dotenv").config();
 const PORT = process.env.PORT || 3001;
 const swaggerUI = require("swagger-ui-express");
-const docs = require("./docs/index");
+const swaggerDocument = require("./docs/swagger.json");
 
 const {handleTypeError} = require("./middlewares/errors");
 const {dbConnection} = require("./config/config");
@@ -17,7 +17,7 @@ app.use("/comments", require("./routes/comments"));
 app.use("/teams", require("./routes/teams"));
 app.use("/invitations", require("./routes/teamInvitations"));
 
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(docs));
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.use(handleTypeError);
 
