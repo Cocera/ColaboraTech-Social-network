@@ -1,7 +1,7 @@
 {
 	"swagger": "2.0",
-	"info": { "contact": {}, "title": "colaboraTech", "version": "1.0.0" },
-	"host": "localhost",
+	"info": { "contact": {}, "title": "ColaboraTech", "version": "1.0.0" },
+	"host": "localhost:8080",
 	"basePath": "/",
 	"schemes": ["http"],
 	"paths": {
@@ -543,7 +543,7 @@
 				"summary": "Follow User"
 			}
 		},
-		"/users/id/{_id}": {
+		"/users/{_id}": {
 			"parameters": [
 				{
 					"description": "user Id",

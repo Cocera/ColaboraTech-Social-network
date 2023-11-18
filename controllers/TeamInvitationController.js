@@ -8,19 +8,31 @@ const jwt_secret = process.env.JWT_SECRET;
 const transporter = require("../config/nodemailer.js");
 
 const TeamInvitationController = {
-  async sendInvitation(req, res) {
-    try {
-      const user = await User.findById(req.params.userId);
-      const project = await Project.findById(req.params._id);
-      const invitation = await Invitation.create({userId: user._id, teamId: project.team, status: "pending"});
-      const emailToken = jwt.sign({
-        email: user.email,
-        invitationId: invitation._id
-      }, jwt_secret, {expiresIn: "48h"});
+	async sendInvitation(req, res) {
+		try {
+			const user = await User.findById(req.params.userId);
+			const project = await Project.findById(req.params._id);
+			const invitation = await Invitation.create({
+				userId: user._id,
+				teamId: project.team,
+				status: "pending",
+			});
+			const emailToken = jwt.sign(
+				{
+					email: user.email,
+					invitationId: invitation._id,
+				},
+				jwt_secret,
+				{ expiresIn: "48h" }
+			);
 
-      const url = `http://localhost:8080/invitations/response/${emailToken}`;
+			const url = `http://localhost:8080/invitations/response/${emailToken}`;
 
-      await transporter.sendMail({to: user.email, subject: "ColaboraTech: You've been invited to collaborate on a project.", html: `<body style="background-color: #f6f6f6; font-family: sans-serif; -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.4; margin: 0; padding: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
+			await transporter.sendMail({
+				to: user.email,
+				subject:
+					"ColaboraTech: You've been invited to collaborate on a project.",
+				html: `<body style="background-color: #f6f6f6; font-family: sans-serif; -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.4; margin: 0; padding: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
     <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f6f6f6; width: 100%;" width="100%" bgcolor="#f6f6f6">
       <tr>
         <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;" valign="top">&nbsp;</td>
@@ -76,73 +88,79 @@ const TeamInvitationController = {
         <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;" valign="top">&nbsp;</td>
       </tr>
     </table>
-  </body>`});
+  </body>`,
+			});
 
-      res
-        .status(201)
-        .send({message: `We've sent an email invitation to join your project.`, invitation});
-    } catch (error) {
-      console.error(error);
-    }
-  },
+			res
+				.status(201)
+				.send({
+					message: `We've sent an email invitation to join your project.`,
+					invitation,
+				});
+		} catch (error) {
+			console.error(error);
+			res
+				.status(500)
+				.send({ message: "Error creating team invitation.", error });
+		}
+	},
 
-  async response(req, res) {
-    try {
-      const token = req.params.emailToken;
-      const {action} = req.query;
-      const payload = jwt.verify(token, jwt_secret);
-      const invitation = await Invitation.findById(payload.invitationId);
-      const user = await User.findOne({email: payload.email});
-      const project = await Project.findOne({team: invitation.teamId});
-      const team = await Team.findById(project.team);
+	async response(req, res) {
+		try {
+			const token = req.params.emailToken;
+			const { action } = req.query;
+			const payload = jwt.verify(token, jwt_secret);
+			const invitation = await Invitation.findById(payload.invitationId);
+			const user = await User.findOne({ email: payload.email });
+			const project = await Project.findOne({ team: invitation.teamId });
+			const team = await Team.findById(project.team);
 
-      if (!team) {
-        return res
-          .status(400)
-          .send(`Team does not exist in DB`);
-      } else if (!user) {
-        return res
-          .status(400)
-          .send(`User does not exist in DB`);
-      } else if (team.members.includes(user._id)) {
-        return res
-          .status(400)
-          .send({message: `${user.name} is already a team member.`});
-      } else {
-        await Invitation.findOneAndUpdate({
-          userId: user._id,
-          status: "pending"
-        }, {
-          status: action === "accept"
-            ? "accepted"
-            : "declined"
-        }, {new: true});
+			if (!team) {
+				return res.status(400).send(`Team does not exist in DB.`);
+			} else if (!user) {
+				return res.status(400).send(`User does not exist in DB.`);
+			} else if (team.members.includes(user._id)) {
+				return res
+					.status(400)
+					.send({ message: `${user.name} is already a team member.` });
+			} else {
+				await Invitation.findOneAndUpdate(
+					{
+						userId: user._id,
+						status: "pending",
+					},
+					{
+						status: action === "accept" ? "accepted" : "declined",
+					},
+					{ new: true }
+				);
 
-        if (action === "accept") {
-          await Team.findByIdAndUpdate(project.team, {
-            $push: {
-              members: invitation.userId
-            }
-          }, {new: true});
-          await Invitation.deleteOne({_id: invitation._id});
-          res
-            .status(201)
-            .send("Invitation accepted successfully.");
-        } else if (action === "decline") {
-          await Invitation.deleteOne({_id: invitation._id});
-          res
-            .status(201)
-            .send("Invitation declined successfully.");
-        } else {
-          res
-            .status(400)
-            .send("Invalid action parameter.");
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
+				if (action === "accept") {
+					await Team.findByIdAndUpdate(
+						project.team,
+						{
+							$push: {
+								members: invitation.userId,
+							},
+						},
+						{ new: true }
+					);
+					await Invitation.deleteOne({ _id: invitation._id });
+					res.send("Invitation accepted successfully.");
+				} else if (action === "decline") {
+					await Invitation.deleteOne({ _id: invitation._id });
+					res.send("Invitation declined successfully.");
+				} else {
+					res.status(400).send("Invalid action parameter.");
+				}
+			}
+		} catch (error) {
+			console.error(error);
+			res
+				.status(500)
+				.send({ message: "Error with invitation response.", error });
+		}
+	},
 };
 
 module.exports = TeamInvitationController;
