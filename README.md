@@ -65,7 +65,7 @@
 ## Project workflow
 
 <p align="center">
-  <img src="#" width="900">
+  <img src="assets/colaboraTech.gif" width="900">
 </p>
 
 <p align="right">(<a href="##Backend-Project-ColaboraTech">back to top</a>)</p>
