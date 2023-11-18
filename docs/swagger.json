@@ -1,0 +1,685 @@
+{
+	"swagger": "2.0",
+	"info": { "contact": {}, "title": "colaboraTech", "version": "1.0.0" },
+	"host": "localhost",
+	"basePath": "/",
+	"schemes": ["http"],
+	"paths": {
+		"/comments/like/{comment_id}": {
+			"parameters": [
+				{
+					"in": "path",
+					"name": "comment_id",
+					"required": true,
+					"type": "string"
+				}
+			],
+			"put": {
+				"parameters": [],
+				"responses": { "200": { "description": "" } },
+				"tags": ["COMMENTS"],
+				"description": "PUT LIKE",
+				"operationId": "putLike1",
+				"summary": "PUT LIKE"
+			}
+		},
+		"/comments/unlike/{comment_id}": {
+			"parameters": [
+				{
+					"description": "comment Id",
+					"in": "path",
+					"name": "comment_id",
+					"required": true,
+					"type": "string"
+				}
+			],
+			"put": {
+				"parameters": [],
+				"responses": { "200": { "description": "" } },
+				"tags": ["COMMENTS"],
+				"description": "DELETE LIKE",
+				"operationId": "deleteLike1",
+				"summary": "DELETE LIKE"
+			}
+		},
+		"/comments/{comment_id}": {
+			"parameters": [
+				{
+					"description": "comment Id",
+					"in": "path",
+					"name": "comment_id",
+					"required": true,
+					"type": "string"
+				}
+			],
+			"delete": {
+				"parameters": [],
+				"responses": { "200": { "description": "" } },
+				"tags": ["COMMENTS"],
+				"description": "DELETE BY ID",
+				"operationId": "deleteById1",
+				"summary": "DELETE BY ID"
+			},
+			"put": {
+				"consumes": ["application/json"],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"schema": {
+							"properties": {
+								"bodyText": {
+									"example": "Muy bien dicho, @Cesc :)",
+									"type": "string"
+								}
+							},
+							"type": "object"
+						}
+					}
+				],
+				"responses": { "200": { "description": "" } },
+				"tags": ["COMMENTS"],
+				"description": "UPDATE BY ID",
+				"operationId": "updateById",
+				"summary": "UPDATE BY ID"
+			}
+		},
+		"/comments/{post_id}": {
+			"parameters": [
+				{
+					"description": "Id of post you'd like to leave a comment on.",
+					"in": "path",
+					"name": "post_id",
+					"required": true,
+					"type": "string"
+				}
+			],
+			"post": {
+				"consumes": ["application/json"],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"schema": {
+							"properties": {
+								"bodyText": { "example": "Muy bien dicho :)", "type": "string" }
+							},
+							"type": "object"
+						}
+					}
+				],
+				"responses": { "200": { "description": "" } },
+				"tags": ["COMMENTS"],
+				"description": "CREATE COMMENT",
+				"operationId": "createComment",
+				"summary": "CREATE COMMENT"
+			}
+		},
+		"/invitations/project/{projectId}/user/{userId}": {
+			"parameters": [
+				{
+					"in": "path",
+					"name": "projectId",
+					"required": true,
+					"type": "string"
+				},
+				{ "in": "path", "name": "userId", "required": true, "type": "string" }
+			],
+			"post": {
+				"parameters": [{ "in": "query", "name": "", "type": "string" }],
+				"responses": { "200": { "description": "" } },
+				"tags": ["TEAM INVITATIONS"],
+				"description": "SEND TEAM INVITATION",
+				"operationId": "sendTeamInvitation",
+				"summary": "SEND TEAM INVITATION"
+			}
+		},
+		"/posts": {
+			"get": {
+				"parameters": [],
+				"responses": { "200": { "description": "" } },
+				"tags": ["POSTS"],
+				"description": "GET ALL POSTS",
+				"operationId": "getAllPosts",
+				"summary": "GET ALL POSTS"
+			},
+			"post": {
+				"consumes": ["application/json"],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"schema": {
+							"properties": {
+								"bodyText": { "example": "Test", "type": "string" }
+							},
+							"type": "object"
+						}
+					}
+				],
+				"responses": { "200": { "description": "" } },
+				"tags": ["POSTS"],
+				"description": "CREATE POST",
+				"operationId": "createPost",
+				"summary": "CREATE POST"
+			}
+		},
+		"/posts/like/{_id}": {
+			"parameters": [
+				{
+					"description": "post Id",
+					"in": "path",
+					"name": "_id",
+					"required": true,
+					"type": "string"
+				}
+			],
+			"put": {
+				"consumes": ["text/plain"],
+				"parameters": [
+					{ "in": "header", "name": "", "type": "string" },
+					{
+						"in": "body",
+						"name": "body",
+						"schema": { "format": "binary", "type": "string" }
+					}
+				],
+				"responses": { "200": { "description": "" } },
+				"tags": ["POSTS"],
+				"description": "PUT LIKE",
+				"operationId": "putLike",
+				"summary": "PUT LIKE"
+			}
+		},
+		"/posts/text/{text}": {
+			"parameters": [
+				{ "in": "path", "name": "text", "required": true, "type": "string" }
+			],
+			"get": {
+				"parameters": [],
+				"responses": { "200": { "description": "" } },
+				"tags": ["POSTS"],
+				"description": "GET BY CONTENT",
+				"operationId": "getByContent",
+				"summary": "GET BY CONTENT"
+			}
+		},
+		"/posts/unlike/{_id}": {
+			"parameters": [
+				{
+					"description": "post Id",
+					"in": "path",
+					"name": "_id",
+					"required": true,
+					"type": "string"
+				}
+			],
+			"put": {
+				"parameters": [],
+				"responses": { "200": { "description": "" } },
+				"tags": ["POSTS"],
+				"description": "DELETE LIKE",
+				"operationId": "deleteLike",
+				"summary": "DELETE LIKE"
+			}
+		},
+		"/posts/{_id}": {
+			"parameters": [
+				{
+					"description": "post Id",
+					"in": "path",
+					"name": "_id",
+					"required": true,
+					"type": "string"
+				}
+			],
+			"delete": {
+				"parameters": [],
+				"responses": { "200": { "description": "" } },
+				"tags": ["POSTS"],
+				"description": "DELETE BY ID",
+				"operationId": "deleteById",
+				"summary": "DELETE BY ID"
+			},
+			"get": {
+				"parameters": [],
+				"responses": { "200": { "description": "" } },
+				"tags": ["POSTS"],
+				"description": "GET BY ID",
+				"operationId": "getById1",
+				"summary": "GET BY ID"
+			},
+			"put": {
+				"consumes": ["application/json"],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"schema": {
+							"properties": {
+								"bodyText": {
+									"example": "Hola Hola! Felicidades a todos mis compañeros de Full Stack por unos proyectos de backend ESPECTACULARES! Vamoos!",
+									"type": "string"
+								}
+							},
+							"type": "object"
+						}
+					}
+				],
+				"responses": { "200": { "description": "" } },
+				"tags": ["POSTS"],
+				"description": "UPDATE POST",
+				"operationId": "updatePost",
+				"summary": "UPDATE POST"
+			}
+		},
+		"/projects": {
+			"get": {
+				"parameters": [{ "in": "query", "name": "page", "type": "string" }],
+				"responses": { "200": { "description": "" } },
+				"tags": ["PROJECTS"],
+				"description": "GET ALL PROJECTS",
+				"operationId": "getAllProjects",
+				"summary": "GET ALL PROJECTS"
+			},
+			"post": {
+				"consumes": ["application/json"],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"schema": {
+							"properties": {
+								"description": {
+									"example": "Practice project",
+									"type": "string"
+								},
+								"title": { "example": "My first project", "type": "string" }
+							},
+							"type": "object"
+						}
+					}
+				],
+				"responses": { "200": { "description": "" } },
+				"tags": ["PROJECTS"],
+				"description": "CREATE PROJECT",
+				"operationId": "createProject",
+				"summary": "CREATE PROJECT"
+			}
+		},
+		"/projects/addFavorite/{_id}": {
+			"parameters": [
+				{ "in": "path", "name": "_id", "required": true, "type": "string" }
+			],
+			"post": {
+				"parameters": [],
+				"responses": { "200": { "description": "" } },
+				"tags": ["PROJECTS"],
+				"description": "ADD FAVORITE",
+				"operationId": "addFavorite",
+				"summary": "ADD FAVORITE"
+			}
+		},
+		"/projects/removeFavorite/{_id}": {
+			"parameters": [
+				{ "in": "path", "name": "_id", "required": true, "type": "string" }
+			],
+			"post": {
+				"parameters": [],
+				"responses": { "200": { "description": "" } },
+				"tags": ["PROJECTS"],
+				"description": "REMOVE FAVORITE",
+				"operationId": "removeFavorite",
+				"summary": "REMOVE FAVORITE"
+			}
+		},
+		"/projects/title/{title}": {
+			"parameters": [
+				{
+					"description": "Word that may be contained in project title.",
+					"in": "path",
+					"name": "title",
+					"required": true,
+					"type": "string"
+				}
+			],
+			"get": {
+				"parameters": [],
+				"responses": { "200": { "description": "" } },
+				"tags": ["PROJECTS"],
+				"description": "GET BY NAME PROJECT",
+				"operationId": "getByNameProject",
+				"summary": "GET BY NAME PROJECT"
+			}
+		},
+		"/projects/{_id}": {
+			"parameters": [
+				{
+					"description": "project Id",
+					"in": "path",
+					"name": "_id",
+					"required": true,
+					"type": "string"
+				}
+			],
+			"delete": {
+				"consumes": ["text/plain"],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"schema": { "format": "binary", "type": "string" }
+					}
+				],
+				"responses": { "200": { "description": "" } },
+				"tags": ["PROJECTS"],
+				"description": "DELETE  PROJECT",
+				"operationId": "deleteProject",
+				"summary": "DELETE  PROJECT"
+			},
+			"get": {
+				"parameters": [],
+				"responses": { "200": { "description": "" } },
+				"tags": ["PROJECTS"],
+				"description": "GET BY ID PROJECT",
+				"operationId": "getByIdProject",
+				"summary": "GET BY ID PROJECT"
+			},
+			"put": {
+				"consumes": ["application/json"],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"schema": {
+							"properties": {
+								"description": { "example": "kjbv ev", "type": "string" },
+								"title": { "example": "Otro test", "type": "string" }
+							},
+							"type": "object"
+						}
+					}
+				],
+				"responses": { "200": { "description": "" } },
+				"tags": ["PROJECTS"],
+				"description": "UPDATE BY ID PROJECT",
+				"operationId": "updateByIdProject",
+				"summary": "UPDATE BY ID PROJECT"
+			}
+		},
+		"/teams": {
+			"get": {
+				"parameters": [{ "in": "query", "name": "page", "type": "string" }],
+				"responses": { "200": { "description": "" } },
+				"tags": ["TEAMS"],
+				"description": "GET ALL TEAMS",
+				"operationId": "getAllTeams",
+				"summary": "GET ALL TEAMS"
+			}
+		},
+		"/teams/addMembers/{_id}": {
+			"parameters": [
+				{
+					"description": "project Id",
+					"in": "path",
+					"name": "_id",
+					"required": true,
+					"type": "string"
+				}
+			],
+			"put": {
+				"consumes": ["application/json"],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"schema": {
+							"properties": {
+								"members": {
+									"example": [
+										"655748d6a61868ccb535f25a",
+										"65574963899ffe0f2c5b5b03"
+									],
+									"items": {
+										"example": "655748d6a61868ccb535f25a",
+										"type": "string"
+									},
+									"type": "array"
+								}
+							},
+							"type": "object"
+						}
+					}
+				],
+				"responses": { "200": { "description": "" } },
+				"tags": ["TEAMS"],
+				"description": "ADD MEMBERS",
+				"operationId": "addMembers",
+				"summary": "ADD MEMBERS"
+			}
+		},
+		"/teams/removeMembers/{_id}": {
+			"parameters": [
+				{
+					"description": "project Id",
+					"in": "path",
+					"name": "_id",
+					"required": true,
+					"type": "string"
+				}
+			],
+			"put": {
+				"consumes": ["application/json"],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"schema": {
+							"properties": {
+								"members": {
+									"example": [
+										"6553e1bedb8df6d90cd57eb6",
+										"655234976884a00e2c8bcd4d"
+									],
+									"items": {
+										"example": "6553e1bedb8df6d90cd57eb6",
+										"type": "string"
+									},
+									"type": "array"
+								}
+							},
+							"type": "object"
+						}
+					}
+				],
+				"responses": { "200": { "description": "" } },
+				"tags": ["TEAMS"],
+				"description": "REMOVE MEMBERS",
+				"operationId": "removeMembers",
+				"summary": "REMOVE MEMBERS"
+			}
+		},
+		"/users": {
+			"post": {
+				"consumes": ["application/json"],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"schema": {
+							"properties": {
+								"department": { "example": "UX/UI", "type": "string" },
+								"email": { "example": "tito@mail.com", "type": "string" },
+								"name": { "example": "Tito", "type": "string" },
+								"password": { "example": "1234", "type": "string" }
+							},
+							"type": "object"
+						}
+					}
+				],
+				"responses": { "200": { "description": "" } },
+				"tags": ["USERS"],
+				"description": "Register",
+				"operationId": "register",
+				"summary": "Register"
+			}
+		},
+		"/users/follow/{_id}": {
+			"parameters": [
+				{
+					"description": "Id of user you would like to follow",
+					"in": "path",
+					"name": "_id",
+					"required": true,
+					"type": "string"
+				}
+			],
+			"put": {
+				"parameters": [],
+				"responses": { "200": { "description": "" } },
+				"tags": ["USERS"],
+				"description": "Follow User",
+				"operationId": "followUser",
+				"summary": "Follow User"
+			}
+		},
+		"/users/id/{_id}": {
+			"parameters": [
+				{
+					"description": "user Id",
+					"in": "path",
+					"name": "_id",
+					"required": true,
+					"type": "string"
+				}
+			],
+			"get": {
+				"parameters": [],
+				"responses": { "200": { "description": "" } },
+				"tags": ["USERS"],
+				"description": "Get by id",
+				"operationId": "getById",
+				"summary": "Get by id"
+			}
+		},
+		"/users/login": {
+			"post": {
+				"consumes": ["application/json"],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"schema": {
+							"properties": {
+								"email": {
+									"example": "frances0688@gmail.com",
+									"type": "string"
+								},
+								"password": { "example": "1234", "type": "string" }
+							},
+							"type": "object"
+						}
+					}
+				],
+				"responses": { "200": { "description": "" } },
+				"tags": ["USERS"],
+				"description": "Login",
+				"operationId": "login",
+				"summary": "Login"
+			}
+		},
+		"/users/logout": {
+			"delete": {
+				"consumes": ["text/plain"],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"schema": { "format": "binary", "type": "string" }
+					}
+				],
+				"responses": { "200": { "description": "" } },
+				"tags": ["USERS"],
+				"description": "Logout",
+				"operationId": "logout",
+				"summary": "Logout"
+			}
+		},
+		"/users/myBasicInfo": {
+			"get": {
+				"parameters": [],
+				"responses": { "200": { "description": "" } },
+				"tags": ["USERS"],
+				"description": "Get current user info",
+				"operationId": "getCurrentUserInfo",
+				"summary": "Get current user info"
+			}
+		},
+		"/users/myExtendedInfo": {
+			"get": {
+				"parameters": [{ "in": "query", "name": "", "type": "string" }],
+				"responses": { "200": { "description": "" } },
+				"tags": ["USERS"],
+				"description": "Get Current User Info with Posts, Projects, and Followers/Following details",
+				"operationId": "getCurrentUserInfoWithPostsProjectsAndFollowersFollowingDetails",
+				"summary": "Get Current User Info with Posts, Projects, and Followers/Following details"
+			}
+		},
+		"/users/myInfoWithPosts": {
+			"get": {
+				"parameters": [],
+				"responses": { "200": { "description": "" } },
+				"tags": ["USERS"],
+				"description": "Get Current User Info with Post, Projects, and Follower/Following Count",
+				"operationId": "getCurrentUserInfoWithPostProjectsAndFollowerFollowingCount",
+				"summary": "Get Current User Info with Post, Projects, and Follower/Following Count"
+			}
+		},
+		"/users/name/{name}": {
+			"parameters": [
+				{
+					"description": "user Name",
+					"in": "path",
+					"name": "name",
+					"required": true,
+					"type": "string"
+				}
+			],
+			"get": {
+				"parameters": [],
+				"responses": { "200": { "description": "" } },
+				"tags": ["USERS"],
+				"description": "Get by name",
+				"operationId": "getByName",
+				"summary": "Get by name"
+			}
+		},
+		"/users/unfollow/{_id}": {
+			"parameters": [
+				{
+					"description": "Id of user you would like to unfollow",
+					"in": "path",
+					"name": "_id",
+					"required": true,
+					"type": "string"
+				}
+			],
+			"put": {
+				"parameters": [],
+				"responses": { "200": { "description": "" } },
+				"tags": ["USERS"],
+				"description": "Unfollow User",
+				"operationId": "unfollowUser",
+				"summary": "Unfollow User"
+			}
+		}
+	},
+	"tags": [
+		{ "name": "USERS" },
+		{ "name": "POSTS" },
+		{ "name": "COMMENTS" },
+		{ "name": "PROJECTS" },
+		{ "name": "TEAMS" },
+		{ "name": "TEAM INVITATIONS" }
+	]
+}

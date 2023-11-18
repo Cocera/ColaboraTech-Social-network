@@ -5,13 +5,18 @@ const Comment = require("../models/Comment.js");
 const PostController = {
     async create(req, res) {
         try {
-            const post = await Post.create({...req.body, userId: req.user._id});
-            await User.findByIdAndUpdate(
-                req.user._id,
-                {$push: {postId: post._id}},
-                { new: true }
-            );
-            res.status(201).send({message: `${req.user.name} created post successfully`, post});
+            const post = await Post.create({
+                ...req.body,
+                userId: req.user._id
+            });
+            await User.findByIdAndUpdate(req.user._id, {
+                $push: {
+                    postId: post._id
+                }
+            }, {new: true});
+            res
+                .status(201)
+                .send({message: `${req.user.name} created post successfully`, post});
         } catch (error) {
             console.error(error);
             res
@@ -22,14 +27,22 @@ const PostController = {
 
     async findAll(req, res) {
         try {
-            const allPosts = await Post.find()
-                .populate({ path: 'userId', select: 'name' })
-                .populate({ path: 'likes', select: 'name' })
-                .populate({ path: 'comments', select: 'bodyText', populate: {path: 'userId', select: 'name'}})
+            const allPosts = await Post
+                .find()
+                .populate({path: "userId", select: "name"})
+                .populate({path: "likes", select: "name"})
+                .populate({
+                    path: "comments",
+                    select: "bodyText",
+                    populate: {
+                        path: "userId",
+                        select: "name"
+                    }
+                })
                 .exec();
-            res.status(200).send({
-                allPosts
-            });
+            res
+                .status(200)
+                .send({allPosts});
         } catch (error) {
             console.error(error);
             res
@@ -44,18 +57,26 @@ const PostController = {
                 return res
                     .status(400)
                     .send({message: "Invalid ID"});
-            };
+            }
             const paramsId = req.params._id;
-            const postById = await Post.findById({_id: req.params._id})
-                .populate({ path: 'userId', select: 'name' })
-                .populate({ path: 'likes', select: 'name' })
-                .populate({ path: 'comments', select: 'bodyText', populate: {path: 'userId', select: 'name'}})
+            const postById = await Post
+                .findById({_id: req.params._id})
+                .populate({path: "userId", select: "name"})
+                .populate({path: "likes", select: "name"})
+                .populate({
+                    path: "comments",
+                    select: "bodyText",
+                    populate: {
+                        path: "userId",
+                        select: "name"
+                    }
+                })
                 .exec();
             if (!postById) {
                 return res
                     .status(400)
                     .send(`Id ${req.params._id} not exists in DB`);
-            };
+            }
             res
                 .status(200)
                 .send({message: `Found post`, postById});
@@ -71,16 +92,18 @@ const PostController = {
         try {
             const posts = await Post.find({
                 $text: {
-                    $search: req.params.text,
-                }}
-            );
+                    $search: req.params.text
+                }
+            });
             if (posts.length == 0) {
-                return res.send({message: `No posts found with "${req.params.text}"`})
-            };
+                return res.send({message: `No posts found with "${req.params.text}"`});
+            }
             res.send(posts);
         } catch (error) {
-          console.error(error);
-          res.status(500).send(error);
+            console.error(error);
+            res
+                .status(500)
+                .send(error);
         }
     },
 
@@ -90,12 +113,16 @@ const PostController = {
                 return res
                     .status(400)
                     .send({message: "Invalid ID"});
-            };
+            }
             const post = await Post.findByIdAndUpdate(req.params._id, req.body, {new: true});
             if (!post) {
-                return res.status(400).send(`Id ${req.params._id} not exists in DB`);
-            };
-            res.status(200).send({message: `Post with id ${req.params._id} updated`, post});
+                return res
+                    .status(400)
+                    .send(`Id ${req.params._id} not exists in DB`);
+            }
+            res
+                .status(200)
+                .send({message: `Post with id ${req.params._id} updated`, post});
         } catch (error) {
             console.error(error);
             res
@@ -110,7 +137,7 @@ const PostController = {
                 return res
                     .status(400)
                     .send({message: "Invalid ID"});
-            };
+            }
             const post = await Post.findById(req.params._id);
             if (!post) {
                 return res
@@ -194,20 +221,21 @@ const PostController = {
                 return res
                     .status(400)
                     .send(`Post with id ${req.params._id} not exists in DB`);
-            };
+            }
 
             await Comment.deleteMany({postId: postToDelete._id});
 
-            const userPullPost = await User.findByIdAndUpdate(
-                postToDelete.userId,
-                {$pull: {postId: postToDelete._id}},
-                {new: true}
-            );
+            const userPullPost = await User.findByIdAndUpdate(postToDelete.userId, {
+                $pull: {
+                    postId: postToDelete._id
+                }
+            }, {new: true});
 
             await Post.deleteOne({_id: req.params._id});
 
-            res.status(200).send({message: `Post from ${userPullPost.name} with id ${req.params._id} deleted`});
-
+            res
+                .status(200)
+                .send({message: `Post from ${userPullPost.name} with id ${req.params._id} deleted`});
         } catch (error) {
             console.error(error);
             res

@@ -1,4 +1,4 @@
-#Backend Project ColaboraTech
+# Backend Project ColaboraTech
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -52,13 +52,12 @@
 * [![Node][Node.JS]][Node.JS-url]
 * [![Express][Express.js]][Express.js-url]
 * [![MongoDB][MongoDB]][MongoDB-url]
-* [![Sequelize][Sequelize]][Sequelize-url]
 * [![Mongoose][Mongoose]][Mongoose-url]
 * [![JWT][JWT]][JWT-url]
 * [![Postman][Postman]][Postman-url]
 * [![Swagger][Swagger]][Swagger-url]
 
-<p align="right">(<a href="##Backend-Project-ColaboraTech">back to top</a>)</p>
+<p align="right">(<a href="#backend-project-colaboratech">back to top</a>)</p>
 
 <!-- PROJECT WORKFLOW GIF -->
 
@@ -68,7 +67,7 @@
   <img src="assets/colaboraTech.gif" width="900">
 </p>
 
-<p align="right">(<a href="##Backend-Project-ColaboraTech">back to top</a>)</p>
+<p align="right">(<a href="#backend-project-colaboratech">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 
@@ -102,7 +101,7 @@ Below is an example of how you can instruct your audience on installing and sett
     npm start
     ```
 
-<p align="right">(<a href="##Backend-Project-ColaboraTech">back to top</a>)</p>
+<p align="right">(<a href="#backend-project-colaboratech">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
 
@@ -127,7 +126,7 @@ Don't forget to give the project a star! Thanks again!
   </p>
 </div>
 
-<p align="right">(<a href="##Backend-Project-ColaboraTech">back to top</a>)</p>
+<p align="right">(<a href="#backend-project-colaboratech">back to top</a>)</p>
 
 <!-- CONTACT -->
 ---
@@ -152,7 +151,7 @@ Don't forget to give the project a star! Thanks again!
 <a href="https://github.com/cescalberola" target="_blank"><img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a>
 </p>
 
-<p align="right">(<a href="##Backend-Project-ColaboraTech">back to top</a>)</p>
+<p align="right">(<a href="#backend-project-colaboratech">back to top</a>)</p>
 
 
 <!-- MARKDOWN LINKS & IMAGES -->

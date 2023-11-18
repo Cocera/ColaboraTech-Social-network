@@ -50,10 +50,10 @@ const isAuthorProject = async(req, res, next) => {
         if (req.user.role == "admin") {
             return next();
         }
-        if (team.ProjectAdmin.toString() !== req.user._id.toString()) {
+        if (team.projectAdmin.toString() !== req.user._id.toString()) {
             return res
                 .status(403)
-                .send({message: `${team.TeamName} is not yours`});
+                .send({message: `${team.teamName} is not yours`});
         }
         next();
     } catch (error) {

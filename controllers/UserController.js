@@ -17,10 +17,59 @@ const UserController = {
             const emailToken = jwt.sign({
                 email: req.body.email
             }, jwt_secret, {expiresIn: "48h"});
-            const url = "http://localhost:8080/users/confirm/" + emailToken;
-            await transporter.sendMail({to: req.body.email, subject: "Please confirm your registration to ColaboraTech", html: `<h3> Welcome, you're just a step away from joining our tech community!  </h3>
-                <a href="${url}"> Click here to confirm your email address</a>
-                `});
+            const url = `http://localhost:8080/users/confirm/${emailToken}`;
+            await transporter.sendMail({to: req.body.email, subject: "Please confirm your registration to ColaboraTech", html: `<body style="background-color: #f6f6f6; font-family: sans-serif; -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.4; margin: 0; padding: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
+            <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f6f6f6; width: 100%;" width="100%" bgcolor="#f6f6f6">
+              <tr>
+                <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;" valign="top">&nbsp;</td>
+                <td class="container" style="font-family: sans-serif; font-size: 14px; vertical-align: top; display: block; max-width: 580px; padding: 10px; width: 580px; margin: 0 auto;" width="580" valign="top">
+                  <div class="content" style="box-sizing: border-box; display: block; margin: 0 auto; max-width: 580px; padding: 10px;">
+        
+                    <table role="presentation" class="main" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background: #ffffff; border-radius: 3px; width: 100%;" width="100%">
+        
+                      <tr>
+                        <td class="wrapper" style="font-family: sans-serif; font-size: 14px; vertical-align: top; box-sizing: border-box; padding: 20px;" valign="top">
+                          <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
+                            <tr>
+                              <td align="center" style="font-family: sans-serif; font-size: 16px; vertical-align: top;" valign="top">
+                                <h3 style="font-family: sans-serif; font-size: 24px; font-weight: bold; margin: 0; margin-bottom: 20px;">ColaboraTech</h3>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="font-family: sans-serif; font-size: 16px; vertical-align: top;" valign="top">
+                                <p style="font-family: sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 15px;">Hi ${user.name},</p>
+                                <p style="font-family: sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 15px;">You're just one step away from joining Europe's #1 social network exclusively for the tech sector.
+                                </p>
+                                <p style="font-family: sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 15px;">We empower junior talent, and connect you with experts in technology areas.</p>
+                                <p style="font-family: sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 20px;">Click below to confirm your email address:</p>
+                                <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; box-sizing: border-box; width: 100%;" width="100%">
+                                  <tbody>
+                                    <tr>
+                                      <td align="center" style="font-family: sans-serif; font-size: 14px; vertical-align: top; padding-bottom: 15px;" valign="top">
+                                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
+                                          <tbody>
+                                              <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; border-radius: 5px; text-align: center; background-color: #427D9D; margin-bottom: 10px" valign="top" align="center" bgcolor="#427D9D"> <a href="${url}" target="_blank" style="border: solid 1px #427D9D; border-radius: 5px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-decoration: none; text-transform: capitalize; background-color: #427D9D; border-color: #427D9D; color: #ffffff;">Confirm email</a> </td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+        
+                    </table> 
+        
+                  </div>
+                </td>
+                <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;" valign="top">&nbsp;</td>
+              </tr>
+            </table>
+          </body>`});
             res
                 .status(201)
                 .send({message: "We've sent you an email to confirm your registration to ColaboraTech.", user});
@@ -143,7 +192,8 @@ const UserController = {
                 .populate("postId", "bodyText")
                 .populate("projectId", "title")
                 .populate("followers", "name")
-                .populate("following", "name");
+                .populate("following", "name")
+                .populate("favProjects", "title");
             res.send({message: "Your information: ", user});
         } catch (error) {
             console.error(error);
