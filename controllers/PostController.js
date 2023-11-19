@@ -29,7 +29,10 @@ const PostController = {
 
 	async findAll(req, res) {
 		try {
+			const { page = 1, limit = 10 } = req.query;
 			const allPosts = await Post.find()
+				.limit(limit)
+				.skip((page - 1) * limit)
 				.populate({ path: "userId", select: "name" })
 				.populate({ path: "likes", select: "name" })
 				.populate({
