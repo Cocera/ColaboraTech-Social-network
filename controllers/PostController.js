@@ -122,7 +122,9 @@ const PostController = {
 				{ new: true }
 			);
 			if (!post) {
-				return res.status(400).send(`Id ${req.params._id} not exists in DB.`);
+				return res
+					.status(400)
+					.send(`Post with Id ${req.params._id} does not exists in DB.`);
 			}
 			res
 				.status(200)

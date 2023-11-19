@@ -5,7 +5,11 @@ const User = require("../models/User");
 const ProjectController = {
 	async create(req, res, next) {
 		try {
-			const project = await Project.create(req.body);
+			const images = req.files.map((file) => file.filename);
+			const project = await Project.create({
+				...req.body,
+				images,
+			});
 			const team = await Team.create({
 				...req.body,
 				projectId: project._id,
@@ -43,11 +47,23 @@ const ProjectController = {
 
 	async update(req, res, next) {
 		try {
+			if (!req.params._id.match(/^[0-9a-fA-F]{24}$/)) {
+				return res.status(400).send({ message: "Invalid ID." });
+			}
+			const images = req.files.map((file) => file.filename);
 			const project = await Project.findByIdAndUpdate(
 				req.params._id,
-				req.body,
+				{
+					...req.body,
+					images,
+				},
 				{ new: true }
 			);
+			if (!project) {
+				return res
+					.status(400)
+					.send(`Project with Id ${req.params._id} does not exists in DB.`);
+			}
 			res.send({ message: "Project successfully updated.", project });
 		} catch (error) {
 			console.error(error);

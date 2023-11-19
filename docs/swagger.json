@@ -1,9 +1,11 @@
 {
 	"swagger": "2.0",
-	"info": { "contact": {}, "title": "ColaboraTech", "version": "1.0.0" },
-	"host": "localhost:8080",
-	"basePath": "/",
-	"schemes": ["http"],
+	"info": {
+		"contact": {},
+		"title": "ColaboraTech",
+		"version": "1.0.0"
+	},
+	"basePath": "%7B%7Burl%7D%7D",
 	"paths": {
 		"/comments/like/{comment_id}": {
 			"parameters": [
@@ -16,7 +18,11 @@
 			],
 			"put": {
 				"parameters": [],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["COMMENTS"],
 				"description": "PUT LIKE",
 				"operationId": "putLike1",
@@ -35,7 +41,11 @@
 			],
 			"put": {
 				"parameters": [],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["COMMENTS"],
 				"description": "DELETE LIKE",
 				"operationId": "deleteLike1",
@@ -54,7 +64,11 @@
 			],
 			"delete": {
 				"parameters": [],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["COMMENTS"],
 				"description": "DELETE BY ID",
 				"operationId": "deleteById1",
@@ -77,7 +91,11 @@
 						}
 					}
 				],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["COMMENTS"],
 				"description": "UPDATE BY ID",
 				"operationId": "updateById",
@@ -102,13 +120,20 @@
 						"name": "body",
 						"schema": {
 							"properties": {
-								"bodyText": { "example": "Muy bien dicho :)", "type": "string" }
+								"bodyText": {
+									"example": "Muy bien dicho :)",
+									"type": "string"
+								}
 							},
 							"type": "object"
 						}
 					}
 				],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["COMMENTS"],
 				"description": "CREATE COMMENT",
 				"operationId": "createComment",
@@ -123,11 +148,26 @@
 					"required": true,
 					"type": "string"
 				},
-				{ "in": "path", "name": "userId", "required": true, "type": "string" }
+				{
+					"in": "path",
+					"name": "userId",
+					"required": true,
+					"type": "string"
+				}
 			],
 			"post": {
-				"parameters": [{ "in": "query", "name": "", "type": "string" }],
-				"responses": { "200": { "description": "" } },
+				"parameters": [
+					{
+						"in": "query",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["TEAM INVITATIONS"],
 				"description": "SEND TEAM INVITATION",
 				"operationId": "sendTeamInvitation",
@@ -137,27 +177,38 @@
 		"/posts": {
 			"get": {
 				"parameters": [],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["POSTS"],
 				"description": "GET ALL POSTS",
 				"operationId": "getAllPosts",
 				"summary": "GET ALL POSTS"
 			},
 			"post": {
-				"consumes": ["application/json"],
+				"consumes": ["multipart/form-data"],
 				"parameters": [
 					{
-						"in": "body",
-						"name": "body",
-						"schema": {
-							"properties": {
-								"bodyText": { "example": "Test", "type": "string" }
-							},
-							"type": "object"
-						}
+						"description": "post body content",
+						"in": "formData",
+						"name": "bodyText",
+						"type": "string"
+					},
+					{
+						"description": "image for post",
+						"format": "binary",
+						"in": "formData",
+						"name": "images",
+						"type": "string"
 					}
 				],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["POSTS"],
 				"description": "CREATE POST",
 				"operationId": "createPost",
@@ -177,14 +228,25 @@
 			"put": {
 				"consumes": ["text/plain"],
 				"parameters": [
-					{ "in": "header", "name": "", "type": "string" },
+					{
+						"in": "header",
+						"name": "",
+						"type": "string"
+					},
 					{
 						"in": "body",
 						"name": "body",
-						"schema": { "format": "binary", "type": "string" }
+						"schema": {
+							"format": "binary",
+							"type": "string"
+						}
 					}
 				],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["POSTS"],
 				"description": "PUT LIKE",
 				"operationId": "putLike",
@@ -193,11 +255,20 @@
 		},
 		"/posts/text/{text}": {
 			"parameters": [
-				{ "in": "path", "name": "text", "required": true, "type": "string" }
+				{
+					"in": "path",
+					"name": "text",
+					"required": true,
+					"type": "string"
+				}
 			],
 			"get": {
 				"parameters": [],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["POSTS"],
 				"description": "GET BY CONTENT",
 				"operationId": "getByContent",
@@ -216,7 +287,11 @@
 			],
 			"put": {
 				"parameters": [],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["POSTS"],
 				"description": "DELETE LIKE",
 				"operationId": "deleteLike",
@@ -235,7 +310,11 @@
 			],
 			"delete": {
 				"parameters": [],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["POSTS"],
 				"description": "DELETE BY ID",
 				"operationId": "deleteById",
@@ -243,30 +322,37 @@
 			},
 			"get": {
 				"parameters": [],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["POSTS"],
 				"description": "GET BY ID",
 				"operationId": "getById1",
 				"summary": "GET BY ID"
 			},
 			"put": {
-				"consumes": ["application/json"],
+				"consumes": ["multipart/form-data"],
 				"parameters": [
 					{
-						"in": "body",
-						"name": "body",
-						"schema": {
-							"properties": {
-								"bodyText": {
-									"example": "Hola Hola! Felicidades a todos mis compañeros de Full Stack por unos proyectos de backend ESPECTACULARES! Vamoos!",
-									"type": "string"
-								}
-							},
-							"type": "object"
-						}
+						"description": "post body content",
+						"in": "formData",
+						"name": "bodyText",
+						"type": "string"
+					},
+					{
+						"format": "binary",
+						"in": "formData",
+						"name": "images",
+						"type": "string"
 					}
 				],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["POSTS"],
 				"description": "UPDATE POST",
 				"operationId": "updatePost",
@@ -275,8 +361,18 @@
 		},
 		"/projects": {
 			"get": {
-				"parameters": [{ "in": "query", "name": "page", "type": "string" }],
-				"responses": { "200": { "description": "" } },
+				"parameters": [
+					{
+						"in": "query",
+						"name": "page",
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["PROJECTS"],
 				"description": "GET ALL PROJECTS",
 				"operationId": "getAllProjects",
@@ -294,13 +390,20 @@
 									"example": "Practice project",
 									"type": "string"
 								},
-								"title": { "example": "My first project", "type": "string" }
+								"title": {
+									"example": "My first project",
+									"type": "string"
+								}
 							},
 							"type": "object"
 						}
 					}
 				],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["PROJECTS"],
 				"description": "CREATE PROJECT",
 				"operationId": "createProject",
@@ -309,11 +412,20 @@
 		},
 		"/projects/addFavorite/{_id}": {
 			"parameters": [
-				{ "in": "path", "name": "_id", "required": true, "type": "string" }
+				{
+					"in": "path",
+					"name": "_id",
+					"required": true,
+					"type": "string"
+				}
 			],
 			"post": {
 				"parameters": [],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["PROJECTS"],
 				"description": "ADD FAVORITE",
 				"operationId": "addFavorite",
@@ -322,11 +434,20 @@
 		},
 		"/projects/removeFavorite/{_id}": {
 			"parameters": [
-				{ "in": "path", "name": "_id", "required": true, "type": "string" }
+				{
+					"in": "path",
+					"name": "_id",
+					"required": true,
+					"type": "string"
+				}
 			],
 			"post": {
 				"parameters": [],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["PROJECTS"],
 				"description": "REMOVE FAVORITE",
 				"operationId": "removeFavorite",
@@ -345,7 +466,11 @@
 			],
 			"get": {
 				"parameters": [],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["PROJECTS"],
 				"description": "GET BY NAME PROJECT",
 				"operationId": "getByNameProject",
@@ -368,10 +493,17 @@
 					{
 						"in": "body",
 						"name": "body",
-						"schema": { "format": "binary", "type": "string" }
+						"schema": {
+							"format": "binary",
+							"type": "string"
+						}
 					}
 				],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["PROJECTS"],
 				"description": "DELETE  PROJECT",
 				"operationId": "deleteProject",
@@ -379,28 +511,44 @@
 			},
 			"get": {
 				"parameters": [],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["PROJECTS"],
 				"description": "GET BY ID PROJECT",
 				"operationId": "getByIdProject",
 				"summary": "GET BY ID PROJECT"
 			},
 			"put": {
-				"consumes": ["application/json"],
+				"consumes": ["multipart/form-data"],
 				"parameters": [
 					{
-						"in": "body",
-						"name": "body",
-						"schema": {
-							"properties": {
-								"description": { "example": "kjbv ev", "type": "string" },
-								"title": { "example": "Otro test", "type": "string" }
-							},
-							"type": "object"
-						}
+						"description": "project description",
+						"in": "formData",
+						"name": "description",
+						"type": "string"
+					},
+					{
+						"description": "project image",
+						"format": "binary",
+						"in": "formData",
+						"name": "images",
+						"type": "string"
+					},
+					{
+						"description": "project title",
+						"in": "formData",
+						"name": "title",
+						"type": "string"
 					}
 				],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["PROJECTS"],
 				"description": "UPDATE BY ID PROJECT",
 				"operationId": "updateByIdProject",
@@ -409,8 +557,18 @@
 		},
 		"/teams": {
 			"get": {
-				"parameters": [{ "in": "query", "name": "page", "type": "string" }],
-				"responses": { "200": { "description": "" } },
+				"parameters": [
+					{
+						"in": "query",
+						"name": "page",
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["TEAMS"],
 				"description": "GET ALL TEAMS",
 				"operationId": "getAllTeams",
@@ -451,7 +609,11 @@
 						}
 					}
 				],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["TEAMS"],
 				"description": "ADD MEMBERS",
 				"operationId": "addMembers",
@@ -492,7 +654,11 @@
 						}
 					}
 				],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["TEAMS"],
 				"description": "REMOVE MEMBERS",
 				"operationId": "removeMembers",
@@ -508,20 +674,36 @@
 						"name": "body",
 						"schema": {
 							"properties": {
-								"department": { "example": "UX/UI", "type": "string" },
-								"email": { "example": "tito@mail.com", "type": "string" },
-								"name": { "example": "Tito", "type": "string" },
-								"password": { "example": "1234", "type": "string" }
+								"department": {
+									"example": "Web Development",
+									"type": "string"
+								},
+								"email": {
+									"example": "arcardenas45@gmail.com",
+									"type": "string"
+								},
+								"name": {
+									"example": "Adrian Cardenas",
+									"type": "string"
+								},
+								"password": {
+									"example": "1234",
+									"type": "string"
+								}
 							},
 							"type": "object"
 						}
 					}
 				],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["USERS"],
-				"description": "Register",
-				"operationId": "register",
-				"summary": "Register"
+				"description": "REGISTER USER",
+				"operationId": "registerUser",
+				"summary": "REGISTER USER"
 			}
 		},
 		"/users/follow/{_id}": {
@@ -536,14 +718,18 @@
 			],
 			"put": {
 				"parameters": [],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["USERS"],
-				"description": "Follow User",
+				"description": "FOLLOW USER",
 				"operationId": "followUser",
-				"summary": "Follow User"
+				"summary": "FOLLOW USER"
 			}
 		},
-		"/users/{_id}": {
+		"/users/id/{_id}": {
 			"parameters": [
 				{
 					"description": "user Id",
@@ -555,11 +741,15 @@
 			],
 			"get": {
 				"parameters": [],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["USERS"],
-				"description": "Get by id",
+				"description": "GET BY ID",
 				"operationId": "getById",
-				"summary": "Get by id"
+				"summary": "GET BY ID"
 			}
 		},
 		"/users/login": {
@@ -575,17 +765,24 @@
 									"example": "frances0688@gmail.com",
 									"type": "string"
 								},
-								"password": { "example": "1234", "type": "string" }
+								"password": {
+									"example": "1234",
+									"type": "string"
+								}
 							},
 							"type": "object"
 						}
 					}
 				],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["USERS"],
-				"description": "Login",
+				"description": "LOGIN",
 				"operationId": "login",
-				"summary": "Login"
+				"summary": "LOGIN"
 			}
 		},
 		"/users/logout": {
@@ -595,44 +792,69 @@
 					{
 						"in": "body",
 						"name": "body",
-						"schema": { "format": "binary", "type": "string" }
+						"schema": {
+							"format": "binary",
+							"type": "string"
+						}
 					}
 				],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["USERS"],
-				"description": "Logout",
+				"description": "LOGOUT",
 				"operationId": "logout",
-				"summary": "Logout"
+				"summary": "LOGOUT"
 			}
 		},
 		"/users/myBasicInfo": {
 			"get": {
 				"parameters": [],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["USERS"],
-				"description": "Get current user info",
-				"operationId": "getCurrentUserInfo",
-				"summary": "Get current user info"
+				"description": "CURRENT USER INFO",
+				"operationId": "currentUserInfo",
+				"summary": "CURRENT USER INFO"
 			}
 		},
 		"/users/myExtendedInfo": {
 			"get": {
-				"parameters": [{ "in": "query", "name": "", "type": "string" }],
-				"responses": { "200": { "description": "" } },
+				"parameters": [
+					{
+						"in": "query",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["USERS"],
-				"description": "Get Current User Info with Posts, Projects, and Followers/Following details",
-				"operationId": "getCurrentUserInfoWithPostsProjectsAndFollowersFollowingDetails",
-				"summary": "Get Current User Info with Posts, Projects, and Followers/Following details"
+				"description": "EXTENDED CURRENT USER INFO",
+				"operationId": "extendedCurrentUserInfo",
+				"summary": "EXTENDED CURRENT USER INFO"
 			}
 		},
 		"/users/myInfoWithPosts": {
 			"get": {
 				"parameters": [],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["USERS"],
-				"description": "Get Current User Info with Post, Projects, and Follower/Following Count",
-				"operationId": "getCurrentUserInfoWithPostProjectsAndFollowerFollowingCount",
-				"summary": "Get Current User Info with Post, Projects, and Follower/Following Count"
+				"description": "ALL INFO WITH FOLLOW COUNT",
+				"operationId": "allInfoWithFollowCount",
+				"summary": "ALL INFO WITH FOLLOW COUNT"
 			}
 		},
 		"/users/name/{name}": {
@@ -647,11 +869,15 @@
 			],
 			"get": {
 				"parameters": [],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["USERS"],
-				"description": "Get by name",
+				"description": "GET BY NAME",
 				"operationId": "getByName",
-				"summary": "Get by name"
+				"summary": "GET BY NAME"
 			}
 		},
 		"/users/unfollow/{_id}": {
@@ -666,20 +892,59 @@
 			],
 			"put": {
 				"parameters": [],
-				"responses": { "200": { "description": "" } },
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
 				"tags": ["USERS"],
-				"description": "Unfollow User",
+				"description": "UNFOLLOW USER",
 				"operationId": "unfollowUser",
-				"summary": "Unfollow User"
+				"summary": "UNFOLLOW USER"
+			}
+		},
+		"/users/uploadProfilePic": {
+			"put": {
+				"consumes": ["multipart/form-data"],
+				"parameters": [
+					{
+						"description": "profile picture",
+						"format": "binary",
+						"in": "formData",
+						"name": "profilePicture",
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
+				"tags": ["USERS"],
+				"description": "UPLOAD PROFILE PICTURE",
+				"operationId": "uploadProfilePicture",
+				"summary": "UPLOAD PROFILE PICTURE"
 			}
 		}
 	},
 	"tags": [
-		{ "name": "USERS" },
-		{ "name": "POSTS" },
-		{ "name": "COMMENTS" },
-		{ "name": "PROJECTS" },
-		{ "name": "TEAMS" },
-		{ "name": "TEAM INVITATIONS" }
+		{
+			"name": "USERS"
+		},
+		{
+			"name": "POSTS"
+		},
+		{
+			"name": "COMMENTS"
+		},
+		{
+			"name": "PROJECTS"
+		},
+		{
+			"name": "TEAMS"
+		},
+		{
+			"name": "TEAM INVITATIONS"
+		}
 	]
 }
