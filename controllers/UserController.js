@@ -171,7 +171,7 @@ const UserController = {
 			console.error(error);
 			res
 				.status(500)
-				.send({ error: "Error while uploading profile picture.", error });
+				.send({ message: "Error while uploading profile picture.", error });
 		}
 	},
 
