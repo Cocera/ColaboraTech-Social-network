@@ -11,6 +11,11 @@ const ProjectSchema = new mongoose.Schema(
 			type: String,
 			required: [true, "Please add a project description."],
 		},
+		images: [
+			{
+				type: String,
+			},
+		],
 		team: {
 			type: ObjectId,
 			ref: "Team",

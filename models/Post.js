@@ -7,10 +7,14 @@ const PostSchema = new mongoose.Schema(
 			type: String,
 			required: [
 				true,
-				"Post must have content.  Please fill out the body text.",
+				"Post must have content. Please fill out the body text.",
 			],
 		},
-		asset: String,
+		images: [
+			{
+				type: String,
+			},
+		],
 		likes: [
 			{
 				type: ObjectId,

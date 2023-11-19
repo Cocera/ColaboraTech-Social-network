@@ -154,6 +154,28 @@ const UserController = {
 		}
 	},
 
+	async addPicture(req, res) {
+		try {
+			const profilePicture = req.file;
+			const user = await User.findByIdAndUpdate(
+				req.user._id,
+				{
+					profilePicture: profilePicture.filename,
+				},
+				{ new: true }
+			);
+			console.log("user", user);
+			res
+				.status(200)
+				.send({ message: "Profile picture uploaded successfully", user });
+		} catch (error) {
+			console.error(error);
+			res
+				.status(500)
+				.send({ message: "Error while uploading profile picture.", error });
+		}
+	},
+
 	async getCurrent(req, res) {
 		try {
 			const user = await User.findById(req.user._id);

@@ -3,9 +3,21 @@ const router = express.Router();
 const ProjectController = require("../controllers/ProjectController.js");
 const { authentication } = require("../middlewares/authentication.js");
 const { isAuthorProject } = require("../middlewares/isAuthor.js");
+const upload = require("../middlewares/multer");
 
-router.post("/", authentication, ProjectController.create);
-router.put("/:_id", authentication, isAuthorProject, ProjectController.update);
+router.post(
+	"/",
+	authentication,
+	upload.array("images", 4),
+	ProjectController.create
+);
+router.put(
+	"/:_id",
+	authentication,
+	isAuthorProject,
+	upload.array("images", 4),
+	ProjectController.update
+);
 router.delete(
 	"/:_id",
 	authentication,

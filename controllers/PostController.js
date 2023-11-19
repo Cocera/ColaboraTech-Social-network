@@ -5,9 +5,11 @@ const Comment = require("../models/Comment.js");
 const PostController = {
 	async create(req, res) {
 		try {
+			const images = req.files.map((file) => file.filename);
 			const post = await Post.create({
 				...req.body,
 				userId: req.user._id,
+				images,
 			});
 			await User.findByIdAndUpdate(
 				req.user._id,
@@ -58,7 +60,6 @@ const PostController = {
 			if (!req.params._id.match(/^[0-9a-fA-F]{24}$/)) {
 				return res.status(400).send({ message: "Invalid ID" });
 			}
-			const paramsId = req.params._id;
 			const postById = await Post.findById({ _id: req.params._id })
 				.populate({ path: "userId", select: "name" })
 				.populate({ path: "likes", select: "name" })
@@ -114,11 +115,19 @@ const PostController = {
 			if (!req.params._id.match(/^[0-9a-fA-F]{24}$/)) {
 				return res.status(400).send({ message: "Invalid ID." });
 			}
-			const post = await Post.findByIdAndUpdate(req.params._id, req.body, {
-				new: true,
-			});
+			const images = req.files.map((file) => file.filename);
+			const post = await Post.findByIdAndUpdate(
+				req.params._id,
+				{
+					...req.body,
+					images,
+				},
+				{ new: true }
+			);
 			if (!post) {
-				return res.status(400).send(`Id ${req.params._id} not exists in DB.`);
+				return res
+					.status(400)
+					.send(`Post with Id ${req.params._id} does not exists in DB.`);
 			}
 			res
 				.status(200)
