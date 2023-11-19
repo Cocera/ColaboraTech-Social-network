@@ -81,7 +81,7 @@ const CommentController = {
 				);
 			}
 			res
-				.status(201)
+				.status(200)
 				.send({
 					message: `${req.user.name} likes comment with id: ${req.params.comment_id}`,
 				});
@@ -117,7 +117,7 @@ const CommentController = {
 				);
 			}
 			res
-				.status(201)
+				.status(200)
 				.send({
 					message: `${req.user.name} does not like comment with id: ${req.params.comment_id} anymore`,
 				});

@@ -107,7 +107,7 @@ const UserController = {
 				},
 				{ new: true }
 			);
-			res.status(201).send("User confirmed successfully.");
+			res.status(200).send("User confirmed successfully.");
 		} catch (error) {
 			console.error(error);
 			res.status(500).send({ message: "Error while confirming email.", error });
@@ -271,7 +271,7 @@ const UserController = {
 				);
 			}
 			res
-				.status(201)
+				.status(200)
 				.send({
 					message: `${req.user.name} is now following ${userToFollow.name}.`,
 				});
@@ -317,7 +317,7 @@ const UserController = {
 				);
 			}
 			res
-				.status(201)
+				.status(200)
 				.send({
 					message: `${req.user.name} has unfollowed ${userToUnfollow.name}.`,
 				});

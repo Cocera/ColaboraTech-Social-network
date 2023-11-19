@@ -167,7 +167,7 @@ const PostController = {
 				);
 			}
 			res
-				.status(201)
+				.status(200)
 				.send({
 					message: `${req.user.name} likes post with id: ${req.params._id}.`,
 				});
@@ -215,7 +215,7 @@ const PostController = {
 				);
 			}
 			res
-				.status(201)
+				.status(200)
 				.send({
 					message: `${req.user.name} has removed like from post with id: ${req.params._id}.`,
 				});
