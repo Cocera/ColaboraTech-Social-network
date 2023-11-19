@@ -2,10 +2,17 @@ const express = require("express");
 const router = express.Router();
 const UserController = require("../controllers/UserController");
 const { authentication } = require("../middlewares/authentication");
+const upload = require("../middlewares/multer");
 
 router.post("/", UserController.register);
 router.post("/login", UserController.login);
 router.get("/confirm/:emailToken", UserController.confirm);
+router.put(
+	"/uploadProfilePic",
+	authentication,
+	upload.single("profilePicture"),
+	UserController.addPicture
+);
 router.get("/myBasicInfo", authentication, UserController.getCurrent);
 router.get(
 	"/myInfoWithPosts",
