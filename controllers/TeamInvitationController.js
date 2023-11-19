@@ -5,6 +5,7 @@ const Team = require("../models/Team.js");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const jwt_secret = process.env.JWT_SECRET;
+const domain = process.env.DOMAIN;
 const transporter = require("../config/nodemailer.js");
 
 const TeamInvitationController = {
@@ -26,7 +27,7 @@ const TeamInvitationController = {
 				{ expiresIn: "48h" }
 			);
 
-			const url = `http://localhost:8080/invitations/response/${emailToken}`;
+			const url = `${domain}/invitations/response/${emailToken}`;
 
 			await transporter.sendMail({
 				to: user.email,

@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const jwt_secret = process.env.JWT_SECRET;
+const domain = process.env.DOMAIN;
 const transporter = require("../config/nodemailer");
 
 const UserController = {
@@ -21,7 +22,7 @@ const UserController = {
 				jwt_secret,
 				{ expiresIn: "48h" }
 			);
-			const url = `http://localhost:8080/users/confirm/${emailToken}`;
+			const url = `${domain}/users/confirm/${emailToken}`;
 			await transporter.sendMail({
 				to: req.body.email,
 				subject: "Please confirm your registration to ColaboraTech",
